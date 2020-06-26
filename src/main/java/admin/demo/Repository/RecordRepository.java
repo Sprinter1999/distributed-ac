@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface RecordRepository extends JpaRepository<Record,Integer> {
     @Query(value = "select*from  record where user_id=?1",nativeQuery=true)
-    public Record getByUserId(Integer user_id);
+    public List<Record> getByUserId(Integer user_id);
 
 
     List<Record> findByRoomIdAndEndTimeGreaterThanAndRequestStartTimeIsLessThanOrderByRequestStartTime(Integer RoomId, Long EndTime, Long RequestStartTime);
