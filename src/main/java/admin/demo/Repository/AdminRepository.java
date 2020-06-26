@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface AdminRepository extends JpaRepository<Conditioner,Integer> {
     @Modifying
-    @Query("update Conditioner as c set c.is_at_work=?1 where c.room_id=?2")
+    @Query("update Conditioner as c set c.isAtWork=?1 where c.roomId=?2")
     public void updateByRoomId(Integer is_at_work,Integer room_id);
 
 }
