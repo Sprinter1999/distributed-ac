@@ -1,6 +1,7 @@
 package admin.demo.Repository;
 
 import admin.demo.Entity.Conditioner;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,7 +21,8 @@ public interface ConditionerRepository extends JpaRepository<Conditioner,Integer
     ArrayList<Conditioner> findByIsAtWork(Integer isAtWork);
     ArrayList<Conditioner> findAll();
     Conditioner findByRoomId(Integer roomId);
-
+    @Query(value = "select c from Conditioner c where c.userId = ?1")
+    Conditioner findByUserId(Integer userId);
     @Query(value = "select c from Conditioner c where c.isAtWork = ?1 and c.windSpeed < ?2")//找到正在服务队列中最应该被移出的
     ArrayList<Conditioner> findByIsAtWorkAndWindSpeedLessThanAndOrder(@Param("isAtWork")Integer isAtWork, @Param("windSpeed")Integer windSpeed, Sort sort);
     @Query(value = "select c from Conditioner c where c.isAtWork = ?1")//找到正在等待队列中最应该被服务的

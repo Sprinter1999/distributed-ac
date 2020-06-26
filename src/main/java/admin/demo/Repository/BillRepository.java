@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BillRepository extends JpaRepository<Bill,String> {
-    @Query(value = "select totalFee from Bill where userId=?1")
-    public Double getTotalfeeById(Integer userId);
+    @Query(value = "select total_fee from Bill where user_id=?1")
+    public Double getTotalfeeById(Integer user_id);
 }
