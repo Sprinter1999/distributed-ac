@@ -1,4 +1,4 @@
-package admin.demo.repository;
+package admin.demo.Repository;
 
 public interface UserRepository {
 

@@ -1,8 +1,8 @@
-package admin.demo.controller;
+package admin.demo.Controller;
 
-import admin.demo.comment.Result;
-import admin.demo.entity.Record;
-import admin.demo.repository.ConditionerRepository;
+import admin.demo.Comment.Result;
+import admin.demo.Entity.Record;
+import admin.demo.Repository.ConditionerRepository;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

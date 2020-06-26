@@ -1,4 +1,4 @@
-package admin.demo.entity;
+package admin.demo.Entity;
 
 import lombok.Data;
 

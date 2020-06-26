@@ -1,6 +1,6 @@
-package admin.demo.repository;
+package admin.demo.Repository;
 
-import admin.demo.entity.Conditioner;
+import admin.demo.Entity.Conditioner;
 import org.mapstruct.Mapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

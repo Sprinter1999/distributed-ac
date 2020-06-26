@@ -1,4 +1,4 @@
-package admin.demo.controller;
+package admin.demo.Controller;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
-import admin.demo.dto.ManagerReport;
-import admin.demo.entity.Record;
-import admin.demo.repository.RecordRepository;
+import admin.demo.Dto.ManagerReport;
+import admin.demo.Entity.Record;
+import admin.demo.Repository.RecordRepository;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
