@@ -11,15 +11,6 @@ import java.util.ArrayList;
 
 @Repository
 public interface ConditionerRepository extends JpaRepository<Conditioner,Integer> {
-    @Query("select wind_speed,cur_temp from Conditioner")
-    public int getWindSpeedandCurrentTemp();
-
-    @Query("update Conditioner as c set c.set_temp=?1 where c.room_id=?2")
-    public void updateTempByRoomId(Double set_temp,Integer room_id);
-
-    @Query("update Conditioner as c set c.wind_speed=?1 where c.room_id=?2")
-    public void updateWindSpeedByRoomId(Integer wind_speed,Integer room_id);
-
     //中央空调部分的调用
     //ArrayList<Conditioner> findByIsAtWorkEqualsAndWindSpeedLessThanAndOrderByWindSpeedAndOrderByServeStartTime(Integer isAtWork, Integer windSpeed);//查找处于服务中低于给定风速的空调，按风速由低到高排列，风速相等按服务时间由长到短排列
     //ArrayList<Conditioner> findByIsAtWorkEqualsOrderByWindSpeedDescAndOrderByWaitStartTime(Integer isAtWork);
