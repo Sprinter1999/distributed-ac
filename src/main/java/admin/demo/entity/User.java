@@ -7,10 +7,10 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class user {
+public class User {
     @Id
-    private Integer user_id;
-    private Integer room_id;
+    private Integer userId;
+    private Integer roomId;
     private Double checkin;
     private Double checkout;
 }

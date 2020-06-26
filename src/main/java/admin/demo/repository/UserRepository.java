@@ -1,5 +1,5 @@
 package admin.demo.repository;
 
-public interface userRepository {
+public interface UserRepository {
 
 }

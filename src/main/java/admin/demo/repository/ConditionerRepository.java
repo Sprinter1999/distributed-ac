@@ -1,13 +1,10 @@
 package admin.demo.repository;
 
-import admin.demo.entity.conditioner;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface conditionerRepository {
+public interface ConditionerRepository {
     @Query("select wind_speed,cur_temp from conditioner")
     public int getWindSpeedandCurrentTemp();
 

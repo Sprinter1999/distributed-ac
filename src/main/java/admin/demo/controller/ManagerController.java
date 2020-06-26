@@ -9,8 +9,8 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import admin.demo.dto.ManagerReport;
-import admin.demo.entity.record;
-import admin.demo.repository.recordRepository;
+import admin.demo.entity.Record;
+import admin.demo.repository.RecordRepository;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,7 +31,7 @@ public class ManagerController {
     }
 
     @Autowired
-    recordRepository recordrepository;
+    RecordRepository recordrepository;
 
     @GetMapping
     @ApiOperation(value = "获取页面")
@@ -58,7 +58,7 @@ public class ManagerController {
         for(i=1;i<=upline;i++){
 
             //查询有用日期内roomid为i的所有记录
-            List<record> roomrecords = recordrepository.findByRoomIdAndEndTimeGreaterThanAndRequestStartTimeIsLessThanOrderByRequestStartTime(i,starttime,endtime);
+            List<Record> roomrecords = recordrepository.findByRoomIdAndEndTimeGreaterThanAndRequestStartTimeIsLessThanOrderByRequestStartTime(i,starttime,endtime);
             if(roomrecords.isEmpty()){//若无记录则跳过该房间
                 continue;
             }
@@ -79,21 +79,21 @@ public class ManagerController {
             temp.setRecordNum(roomrecords.size());//详单数
             int tempuse;
             //统计各风速、温度使用时间
-            for(record record : roomrecords){
-                tempuse = record.set_temp.intValue();
-                if(record.actual_start_time<starttime&&record.end_time<endtime){
-                    tempcount[tempuse] = tempcount[tempuse] + record.end_time - starttime;
-                    windcount[record.wind_speed] = windcount[record.wind_speed] + record.end_time - starttime;
+            for(Record record : roomrecords){
+                tempuse = record.setTemp.intValue();
+                if(record.actualStartTime <starttime&&record.endTime <endtime){
+                    tempcount[tempuse] = tempcount[tempuse] + record.endTime - starttime;
+                    windcount[record.windSpeed] = windcount[record.windSpeed] + record.endTime - starttime;
                     goaltimes++;
                 }
-                else if(record.end_time>endtime&&record.actual_start_time>starttime){
-                    tempcount[tempuse] = tempcount[tempuse] + endtime - record.actual_start_time;
-                    windcount[record.wind_speed] = windcount[record.wind_speed] + endtime - record.actual_start_time;
+                else if(record.endTime >endtime&&record.actualStartTime >starttime){
+                    tempcount[tempuse] = tempcount[tempuse] + endtime - record.actualStartTime;
+                    windcount[record.windSpeed] = windcount[record.windSpeed] + endtime - record.actualStartTime;
                     scheduletimes++;
                 }
                 else {
-                    tempcount[tempuse] = tempcount[tempuse] + record.end_time - record.actual_start_time;
-                    windcount[record.wind_speed] = windcount[record.wind_speed] + record.end_time - record.actual_start_time;
+                    tempcount[tempuse] = tempcount[tempuse] + record.endTime - record.actualStartTime;
+                    windcount[record.windSpeed] = windcount[record.windSpeed] + record.endTime - record.actualStartTime;
                     goaltimes++;
                     usetime++;
                     scheduletimes++;

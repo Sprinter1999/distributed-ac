@@ -1,8 +1,8 @@
 package admin.demo.controller;
 
 import admin.demo.comment.Result;
-import admin.demo.entity.record;
-import admin.demo.repository.conditionerRepository;
+import admin.demo.entity.Record;
+import admin.demo.repository.ConditionerRepository;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/user")
-public class conditionerController {
+public class ConditionerController {
     @Autowired
-    conditionerRepository conditionerRepository;
+    ConditionerRepository conditionerRepository;
 
     @PostMapping
     @ApiOperation(value = "显示模式、风速、温度")
-    public record postWinSpeedandCurrentTemp{
+    public Record postWinSpeedandCurrentTemp{
 
         return conditionerRepository.getWindSpeedandCurrentTemp();
     }
