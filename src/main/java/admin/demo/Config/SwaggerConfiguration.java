@@ -22,7 +22,7 @@ public class SwaggerConfiguration {
                         .version("1.0")
                         .build())//设置API基本信息
                 .select()// 选择那些路径和api会生成document
-                .apis(RequestHandlerSelectors.basePackage("admin.demo.controller")) // 设置对哪些包内的api进行监控
+                .apis(RequestHandlerSelectors.basePackage("admin.demo.Controller")) // 设置对哪些包内的api进行监控
                 //.paths(PathSelectors.ant("/api/admin/**")) // 仅监控路径/v1/**
                 .paths(PathSelectors.any()) // 对所有路径进行监控
                 .build()
