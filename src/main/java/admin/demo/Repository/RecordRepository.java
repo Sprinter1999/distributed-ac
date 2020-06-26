@@ -17,4 +17,9 @@ public interface RecordRepository extends JpaRepository<Record,Integer> {
 
     @Query("select max(r.room_id) from Record r")
     Integer querybigroomid();
+
+    //中央空调部分的调用
+    Record findByRoomIdAndIsComplete(Integer roomId, Integer isComplete);
+    Record findByRoomId(Integer id);
+    Record deleteByRoomIdAndIsComplete(Integer roomId, Integer isComplete);
 }

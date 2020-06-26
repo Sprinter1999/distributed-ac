@@ -1,6 +1,6 @@
 package admin.demo.Service;
 
-import distributedac.demo.Entity.Record;
+import admin.demo.Entity.Record;
 
 public interface IConditionerService {
     /**
