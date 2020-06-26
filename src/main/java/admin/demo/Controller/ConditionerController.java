@@ -25,7 +25,7 @@ public class ConditionerController {
     @Autowired
     ConditionerService conditionerService;
 
-    @ApiOperation(value = "显示模式、风速、温度")
+    @ApiOperation(value = "风速、温度")
     @PostMapping(value = "")
     public Result<Object> getRoomInfo(@RequestParam Integer roomId){
         Conditioner conditioner = conditionerRepository.findByRoomId(roomId);
