@@ -15,7 +15,7 @@ public interface RecordRepository extends JpaRepository<Record,Integer> {
 
     List<Record> findByRoomIdAndEndTimeGreaterThanAndRequestStartTimeIsLessThanOrderByRequestStartTime(Integer RoomId, Long EndTime, Long RequestStartTime);
 
-    @Query("select max(r.room_id) from Record r")
+    @Query("select max(r.roomId) from Record r")
     Integer querybigroomid();
 
     //中央空调部分的调用

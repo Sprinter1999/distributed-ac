@@ -32,26 +32,9 @@ public class ConditionerController {
         return Result.ok(conditioner);
     }
 
-    @ApiOperation(value = "设置温度")
-    @GetMapping(value = "/temp")
-    public Result<Object> setTemp(@RequestParam Integer roomId, @RequestParam Double temp){
-        Date date = new Date();
-        Long datetime = date.getTime();
-        Conditioner conditioner = conditionerRepository.findByRoomId(roomId);
-        Record record = new Record();
-        record.userId = conditioner.userId;
-        record.roomId = roomId;
-        record.windSpeed = conditioner.windSpeed;
-        record.startTemp = conditioner.curTemp;
-        record.setTemp = temp;
-        record.requestStartTime = datetime;
-        conditionerService.ServiceRequest(record);
-        return Result.ok("success");
-    }
-
-    @ApiOperation(value = "设置风速")
-    @GetMapping(value = "/windSpeed")
-    public Result<Object> setWindSpeed(@RequestParam Integer roomId, @RequestParam Integer windSpeed){
+    @ApiOperation(value = "设置温度、风速")
+    @GetMapping(value = "/request")
+    public Result<Object> setTemp(@RequestParam Integer roomId, @RequestParam Double temp, @RequestParam Integer windSpeed){
         Date date = new Date();
         Long datetime = date.getTime();
         Conditioner conditioner = conditionerRepository.findByRoomId(roomId);
@@ -60,11 +43,12 @@ public class ConditionerController {
         record.roomId = roomId;
         record.windSpeed = windSpeed;
         record.startTemp = conditioner.curTemp;
-        record.setTemp = conditioner.setTemp;
+        record.setTemp = temp;
         record.requestStartTime = datetime;
         conditionerService.ServiceRequest(record);
-        return Result.ok("success");
+        return Result.ok(conditioner);
     }
+
 
 
 }

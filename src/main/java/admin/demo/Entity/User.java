@@ -16,5 +16,5 @@ public class User {
     public String password;
     public Integer roomId;
     public Long checkin;
-    public Long checkout;
+    public Long checkout = (long)0;
 }
