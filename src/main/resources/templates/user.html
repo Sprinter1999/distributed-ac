@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>user</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../../java/admin/demo/css/style.css" />
+
+    <style>
+      form {
+        border: 1px solid #9d8267;
+        box-shadow: 20px 20px 3px #9d8267;
+      }
+      p.h3 {
+        letter-spacing: 5px;
+      }
+      label {
+        min-width: 100px;
+        padding: 10px;
+        letter-spacing: 2px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container p-5">
+      <div class="row m-5 p-3">
+        <form class="col m-5 p-3">
+          <p class="h3">当前空调状态</p>
+          <div class="form-group d-flex">
+            <label class="d-block">模式</label>
+            <input class="form-control" disabled />
+          </div>
+          <div class="form-group d-flex">
+            <label class="inline-block">温度</label>
+            <input class="form-control" disabled />
+          </div>
+          <div class="form-group d-flex">
+            <label class="inline-block">风速</label>
+            <input class="form-control" disabled />
+          </div>
+        </form>
+        <form class="col m-5 p-3">
+          <p class="h3 text-right">目标设置</p>
+          <div class="form-group d-flex">
+            <label class="d-block">模式</label>
+            <input class="form-control" />
+          </div>
+          <div class="form-group d-flex">
+            <label class="inline-block">温度</label>
+            <input class="form-control" />
+          </div>
+          <div class="form-group d-flex">
+            <label class="inline-block">风速</label>
+            <input class="form-control" />
+          </div>
+          <button
+            type="submit"
+            class="btn orange text-white d-block m-auto px-4"
+          >
+            确认
+          </button>
+        </form>
+      </div>
+    </div>
+    <a href="index.html" class="back-btn">Back</a>
+  </body>
+</html>

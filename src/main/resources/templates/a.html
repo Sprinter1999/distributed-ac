@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col-md-8 col-md-offset-2">
+    <h1>添加联系人</h1>
+    <hr>
+    <form th:action="@{/manager}" method="POST">
+        <label>请输入起始日期</label>
+        <input type="date" name="startTime" id="sTime" placeholder="输入起始日期">
+        <hr>
+        <label>请输入结束日期</label>
+        <input type="date" name="endTime" id="eTime" placeholder="输入结束日期">
+        <hr>
+        <button class="aaa" type="submit">提交</button>
+    </form>
+</div>
+</body>
+</html>
