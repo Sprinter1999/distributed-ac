@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
-import admin.demo.comment.ManagerReport;
+import admin.demo.dto.ManagerReport;
 import admin.demo.entity.record;
 import admin.demo.repository.recordRepository;
 
