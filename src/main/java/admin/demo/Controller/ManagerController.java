@@ -1,5 +1,8 @@
 package admin.demo.Controller;
 
+import admin.demo.Dto.ManagerReport;
+import admin.demo.Entity.Record;
+import admin.demo.Repository.RecordRepository;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -8,9 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
-import admin.demo.Dto.ManagerReport;
-import admin.demo.Entity.Record;
-import admin.demo.Repository.RecordRepository;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

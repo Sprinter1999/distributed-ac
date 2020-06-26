@@ -23,7 +23,7 @@ public class ReceptionController {
     @RequestMapping(value = "/bill",method = RequestMethod.GET)
     @ResponseBody
     public String getBill(){
-        return "bill.html";
+        return "record.html";
     }
 
     @ApiOperation(value = "根据用户ID查询费用",notes = "返回用户所住房间这段时间应该付多少钱")
