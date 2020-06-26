@@ -56,16 +56,16 @@
               <tbody th:remove="all-but-first">
               <!--/*@thymesVar id="records" type=""*/-->
               <tr th:each="record : ${records}"">
-                <td th:text="${record.userId}">996</td>
-                <td th:text="${record.roomId}">251</td>
+                <td th:text="${record.userId}"></td>
+                <td th:text="${record.roomId}"></td>
                 <!-- 一会儿再填充               -->
-                <td scope="col" th:text="${record.windSpeed}">风速</td>
-                <td scope="col" th:text="${record.startTemp}">初始温度</td>
-                <td scope="col" th:text="${record.setTemp}">设定温度</td>
-                <td scope="col" th:text="${record.requestStartTime}">请求递交时间</td>
-                <td scope="col" th:text="${record.actualStartTime}">服务开始时间</td>
-                <td scope="col" th:text="${record.endTime}">结束时间</td>
-                <td scope="col" th:text="${record.electricity}">耗电量</td>
+                <td scope="col" th:text="${record.windSpeed}"></td>
+                <td scope="col" th:text="${record.startTemp}"></td>
+                <td scope="col" th:text="${record.setTemp}"></td>
+                <td scope="col" th:text="${record.requestStartTime}"></td>
+                <td scope="col" th:text="${record.actualStartTime}"></td>
+                <td scope="col" th:text="${record.endTime}"></td>
+                <td scope="col" th:text="${record.electricity}"></td>
 
               </tr>
               </tbody>
