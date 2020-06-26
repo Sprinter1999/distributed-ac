@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>login</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../../java/admin/demo/css/style.css" />
+
+    <style>
+      form {
+        border: 1px solid #7789bb;
+        box-shadow: 20px 20px 3px #445da0;
+      }
+
+      p {
+        letter-spacing: 5px;
+      }
+
+      label {
+        min-width: 100px;
+        padding: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container p-5">
+      <div class="row my-5 p-3">
+        <form class="col m-5 p-3">
+          <p class="h3 py-2 m-auto">用户注册</p><br><br>
+          <div class="form-group d-flex">
+            <label class="d-block">用户名</label>
+            <input class="form-control" placeholder="请输入用户名" />
+          </div>
+          <div class="form-group d-flex">
+            <label class="inline-block">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+            <input
+              type="password"
+              class="form-control"
+              placeholder="请输入密码"
+            />
+          </div>
+          <button
+            id="register"
+            type="submit"
+            class="btn blue1 text-white d-block m-auto px-4"
+          >
+            注册
+          </button>
+        </form>
+        <form class="col m-5 p-3">
+          <p class="h3 m-auto">用户登录</p><br></br>
+          <div class="form-group d-flex">
+            <label>用户名</label>
+            <input class="form-control" placeholder="请输入用户名" />
+          </div>
+          <div class="form-group d-flex">
+            <label>密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+            <input
+              type="password"
+              class="form-control"
+              placeholder="请输入密码"
+            />
+          </div>
+          <div class="form-group d-flex">
+            <label>身&nbsp;&nbsp;&nbsp;&nbsp;份</label>
+            <select class="custom-select" id="identity">
+              <option value="0" selected>请选择用户身份</option>
+              <option value="1">住户</option>
+              <option value="2">经理</option>
+              <option value="3">空调管理员</option>
+            </select>
+          </div>
+          <button
+            id="login"
+            type="submit"
+            class="btn blue2 text-white d-block m-auto px-4"
+          >
+            登录
+          </button>
+        </form>
+      </div>
+    </div>
+    <a href="index.html" class="back-btn">Back</a>
+    <script>
+      document.getElementById("register").onclick = function (e) {
+        e.preventDefault();
+        location.href = "login.html";
+      };
+      document.getElementById("login").onclick = function (e) {
+        e.preventDefault();
+        var identity = document.getElementById("identity");
+        var href;
+        console.log(identity.value);
+        switch (identity.value) {
+          case "1":
+            location.href = "user.html";
+            break;
+          case "2":
+            location.href = "manager.html";
+            break;
+          case "3":
+            location.href = "admin.html";
+            break;
+          default:
+            break;
+        }
+      };
+    </script>
+  </body>
+</html>

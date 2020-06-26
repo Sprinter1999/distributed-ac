@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bill</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../../java/admin/demo/css/style.css" />
+  <style>
+    label {
+      min-width: 100px;
+      padding: 10px;
+    }
+
+    th,
+    td {
+      border: 1px solid #000 !important;
+      text-align: center;
+      letter-spacing: 5px;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container p-5">
+    <div class="row py-5 my-5">
+      <form class="d-flex flex-column justify-content-center my-5 blue2 col-4 p-3">
+        <div class="form-group d-flex">
+          <label class="text-white">用户名</label>
+          <input class="form-control w-50" />
+        </div>
+        <div class="form-group d-flex">
+          <label class="text-white">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+          <input type="password" class="form-control w-50" />
+        </div>
+        <button id="login" type="submit" class="btn text-white border border-white d-block px-4"
+          style="margin: 0 auto;">
+          查询
+        </button>
+      </form>
+      <div class="my-5 col-8 p-3">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">开始时间</th>
+              <th scope="col">结束时间</th>
+              <th scope="col">模式</th>
+              <th scope="col">风速</th>
+              <th scope="col">费用</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"></th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-right" style="letter-spacing: 5px;">
+          总计
+          <input class="form-control d-inline-block w-25" disabled />
+          元
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-btn">Back</a>
+</body>
+
+</html>
