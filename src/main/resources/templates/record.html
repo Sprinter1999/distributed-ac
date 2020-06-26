@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="../../java/admin/demo/css/style.css"/>
+    <link rel="stylesheet" href="../Static/css/style.css"/>
     <style>
         label {
             min-width: 100px;
@@ -33,10 +33,6 @@
                 <label class="text-white">用户名</label>
                 <input class="form-control w-50"/>
             </div>
-            <div class="form-group d-flex">
-                <label class="text-white">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
-                <input type="password" class="form-control w-50"/>
-            </div>
             <button id="login" type="submit" class="btn text-white border border-white d-block px-4"
                     style="margin: 0 auto;">
                 查询
@@ -57,19 +53,19 @@
                     <th scope="col">耗电量</th>
                 </tr>
                 </thead>
-              <tbody>
+              <tbody th:remove="all-but-first">
               <!--/*@thymesVar id="records" type=""*/-->
-              <tr th:each="record : ${records}" th:class="${recordStat.odd}? 'odd'">
-                <td th:text="${record.name}">Onions</td>
-                <td th:text="${record.price}">2.41</td>
+              <tr th:each="record : ${records}"">
+                <td th:text="${record.userId}">996</td>
+                <td th:text="${record.roomId}">251</td>
                 <!-- 一会儿再填充               -->
-                <td scope="col">风速</td>
-                <td scope="col">初始温度</td>
-                <td scope="col">设定温度</td>
-                <td scope="col">请求递交时间</td>
-                <td scope="col">服务开始时间</td>
-                <td scope="col">结束时间</td>
-                <td scope="col">耗电量</td>
+                <td scope="col" th:text="${record.windSpeed}">风速</td>
+                <td scope="col" th:text="${record.startTemp}">初始温度</td>
+                <td scope="col" th:text="${record.setTemp}">设定温度</td>
+                <td scope="col" th:text="${record.requestStartTime}">请求递交时间</td>
+                <td scope="col" th:text="${record.actualStartTime}">服务开始时间</td>
+                <td scope="col" th:text="${record.endTime}">结束时间</td>
+                <td scope="col" th:text="${record.electricity}">耗电量</td>
 
               </tr>
               </tbody>

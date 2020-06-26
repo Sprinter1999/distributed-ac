@@ -11,7 +11,7 @@
       integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="../../java/admin/demo/css/style.css" />
+    <link rel="stylesheet" href="../Static/css/style.css" />
 
     <style>
       form {
@@ -47,6 +47,13 @@
               placeholder="请输入密码"
             />
           </div>
+          <div class="form-group d-flex">
+            <label class="inline-block">初始温度</label>
+            <input
+                    class="form-control"
+                    placeholder="请输入初始温度"
+            />
+          </div>
           <button
             id="register"
             type="submit"
@@ -69,15 +76,6 @@
               placeholder="请输入密码"
             />
           </div>
-          <div class="form-group d-flex">
-            <label>身&nbsp;&nbsp;&nbsp;&nbsp;份</label>
-            <select class="custom-select" id="identity">
-              <option value="0" selected>请选择用户身份</option>
-              <option value="1">住户</option>
-              <option value="2">经理</option>
-              <option value="3">空调管理员</option>
-            </select>
-          </div>
           <button
             id="login"
             type="submit"
@@ -89,30 +87,5 @@
       </div>
     </div>
     <a href="index.html" class="back-btn">Back</a>
-    <script>
-      document.getElementById("register").onclick = function (e) {
-        e.preventDefault();
-        location.href = "login.html";
-      };
-      document.getElementById("login").onclick = function (e) {
-        e.preventDefault();
-        var identity = document.getElementById("identity");
-        var href;
-        console.log(identity.value);
-        switch (identity.value) {
-          case "1":
-            location.href = "user.html";
-            break;
-          case "2":
-            location.href = "manager.html";
-            break;
-          case "3":
-            location.href = "admin.html";
-            break;
-          default:
-            break;
-        }
-      };
-    </script>
   </body>
 </html>
