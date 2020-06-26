@@ -17,5 +17,5 @@ public class Bill {
     public Integer roomId;
     public Long checkin;
     public Long checkout;
-    public Double totalFee;
+    public Double totalFee = (double)0;
 }

@@ -1,9 +1,13 @@
 package admin.demo.Service.impl;
 
+import admin.demo.Entity.Bill;
 import admin.demo.Entity.Conditioner;
 import admin.demo.Entity.Record;
+import admin.demo.Entity.User;
+import admin.demo.Repository.BillRepository;
 import admin.demo.Repository.ConditionerRepository;
 import admin.demo.Repository.RecordRepository;
+import admin.demo.Repository.UserRepository;
 import admin.demo.Service.IConditionerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +21,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ConditionerService implements IConditionerService {
@@ -24,6 +29,10 @@ public class ConditionerService implements IConditionerService {
     ConditionerRepository cR;
     @Autowired
     RecordRepository rR;
+    @Autowired
+    UserRepository uR;
+    @Autowired
+    BillRepository bR;
 
     int MAX_NUM = 5;
 
@@ -203,6 +212,28 @@ public class ConditionerService implements IConditionerService {
                 turnToServe(waitConditionerList.get(0));
             }
         }
+    }
+
+    //用户退房时调用
+    //TODO:关掉房间的空调，存储总账单，设置用户退出时间
+    public void CheckOut(Integer userId){
+        Date date = new Date();
+        Long datetime = date.getTime();
+
+        Conditioner conditioner = cR.findByUserId(userId);
+        User user = uR.findUserByUserId(userId);
+        List<Record> recordList = rR.findByRoomId(user.roomId);
+        turnOffOrStandBy(conditioner, 0);
+        Bill bill = new Bill();
+        bill.userId = userId;
+        bill.roomId = conditioner.roomId;
+        bill.checkin = user.checkin;
+        bill.checkout = datetime;
+        for (Record record : recordList)
+            bill.totalFee += record.electricity;
+        bR.save(bill);
+        user.checkout = datetime;
+        uR.save(user);
     }
 
 

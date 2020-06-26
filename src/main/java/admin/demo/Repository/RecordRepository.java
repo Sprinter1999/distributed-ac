@@ -20,6 +20,6 @@ public interface RecordRepository extends JpaRepository<Record,Integer> {
 
     //中央空调部分的调用
     Record findByRoomIdAndIsComplete(Integer roomId, Integer isComplete);
-    Record findByRoomId(Integer id);
-    Record deleteByRoomIdAndIsComplete(Integer roomId, Integer isComplete);
+    List<Record> findByRoomId(Integer id);
+    void deleteByRoomIdAndIsComplete(Integer roomId, Integer isComplete);
 }

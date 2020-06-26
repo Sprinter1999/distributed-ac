@@ -5,6 +5,7 @@ import admin.demo.Entity.Conditioner;
 import admin.demo.Entity.User;
 import admin.demo.Repository.ConditionerRepository;
 import admin.demo.Repository.UserRepository;
+import admin.demo.Service.impl.ConditionerService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -24,6 +25,8 @@ public class UserController {
     UserRepository userRepository;
     @Autowired
     ConditionerRepository conditionerRepository;
+    @Autowired
+    ConditionerService conditionerService;
 
     //用户登录
     @ApiOperation(value = "用户登录",notes = "设置session")
@@ -56,4 +59,12 @@ public class UserController {
         return Result.ok(user);
     }
 
+    @ApiOperation(value = "用户退房")
+    @PostMapping(value = "/register", produces = "application/json")
+    public Result<Object> checkout(Integer userId, String password){
+        User user = userRepository.findUserByUserId(userId);
+        if (user == null || !user.password.equals(password)) return Result.error("用户名或密码错误");
+        conditionerService.CheckOut(userId);
+        return Result.ok("退房成功");
+    }
 }
