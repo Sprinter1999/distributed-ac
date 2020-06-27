@@ -119,13 +119,13 @@ public class ConditionerService implements IConditionerService {
         //空调状态变换
         ArrayList<Conditioner> allConditionerList = cR.findAll();
         if (allConditionerList.isEmpty()){//没有房间
-            Thread.currentThread().setName("房间当前时间下的状态");
-            logger.info("{}.状态如下{}",Thread.currentThread().getName(), null);
+            //Thread.currentThread().setName("房间当前时间下的状态");
+            //logger.info("房间当前时间下的状态.状态如下{}",Thread.currentThread().getName(), null);
             return;
         }
         for (Conditioner conditioner : allConditionerList){
             Record record = rR.findByRoomIdAndIsComplete(conditioner.roomId, 0);//TODO:查找时加入了是否完成，改正了之前可能查找到多个Record的bug
-            if(conditioner.isAtWork == 2){
+            if(conditioner.isAtWork == 2){//房间处于服务队列
                 //房间温度变换
                 if(conditioner.windSpeed == 1){
                     if(conditioner.setTemp > conditioner.curTemp){
@@ -134,14 +134,12 @@ public class ConditionerService implements IConditionerService {
                         conditioner.curTemp -= 0.5;
                     }
                 }else if(conditioner.windSpeed == 0){
-                    long serveTime = datetime/(6000)-conditioner.serveStartTime/(6000);
                     if(conditioner.setTemp > conditioner.curTemp){
                         conditioner.curTemp += 0.4;
                     }else{
                         conditioner.curTemp -= 0.4;
                     }
                 }else{
-                    long serveTime = datetime/(6000)-conditioner.serveStartTime/(6000);
                     if(conditioner.setTemp > conditioner.curTemp){
                         conditioner.curTemp += 0.6;
                     }else{
@@ -165,6 +163,7 @@ public class ConditionerService implements IConditionerService {
                 }else if(diff <= -0.5) {
                     conditioner.curTemp += 0.5;
                 }
+                cR.save(conditioner);
             }
         }
 
@@ -180,7 +179,7 @@ public class ConditionerService implements IConditionerService {
             }else {
                 for(Conditioner conditioner : waitConditionerList){
                     long waitTime = datetime/(6000)-conditioner.serveStartTime/(6000);
-                    if(waitTime >= 2 && waitTime%2 == 0){
+                    if(waitTime >= 2 && waitTime%2 == 0){//找到一个等待时间超过2分钟且等待时间是2的倍数的
                         Conditioner serveConditioner = serveConditionerList.get(0);
                         turnToWait(serveConditioner);
                         turnToServe(conditioner);
@@ -191,8 +190,8 @@ public class ConditionerService implements IConditionerService {
         }
 
         //输出日志
-        Thread.currentThread().setName("房间当前时间下的状态");
-        logger.info("{}.状态如下{}",Thread.currentThread().getName(), cR.findAll());
+        //Thread.currentThread().setName("房间当前时间下的状态");
+        logger.info("房间当前时间下的状态.状态如下{}", cR.findAll());
     }
 
     //管理员调用

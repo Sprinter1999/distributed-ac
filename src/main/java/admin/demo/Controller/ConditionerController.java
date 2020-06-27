@@ -25,8 +25,8 @@ public class ConditionerController {
     @Autowired
     ConditionerService conditionerService;
 
-    @ApiOperation(value = "风速、温度")
-    @PostMapping(value = "")
+    @ApiOperation(value = "获取房间风速、温度")
+    @GetMapping(value = "/information")
     public Result<Object> getRoomInfo(@RequestParam Integer roomId){
         Conditioner conditioner = conditionerRepository.findByRoomId(roomId);
         return Result.ok(conditioner);
@@ -49,6 +49,16 @@ public class ConditionerController {
         return Result.ok(conditioner);
     }
 
+    @ApiOperation(value = "关机")
+    @GetMapping(value = "/off")
+    public Result<Object> turnOff(@RequestParam Integer roomId){
+        conditionerService.StopRequest(roomId);
+        return Result.ok("success");
+    }
 
-
+    @ApiOperation(value = "待机")
+    public Result<Object> standBy(@RequestParam Integer roomId){
+        conditionerService.StandByRequest(roomId);
+        return Result.ok("success");
+    }
 }

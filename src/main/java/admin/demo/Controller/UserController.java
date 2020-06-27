@@ -40,7 +40,7 @@ public class UserController {
 
     //用户注册
     @ApiOperation(value = "用户注册",notes = "存储新用户")
-    @PostMapping(value = "/register", produces = "application/json")
+    @PostMapping(value = "/checkin", produces = "application/json")
     public Result<Object> login(Integer userId, String password, Double initTemp){
         Date date = new Date();
         Long datetime = date.getTime();
@@ -60,7 +60,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "用户退房")
-    @PostMapping(value = "/register", produces = "application/json")
+    @PostMapping(value = "/checkout", produces = "application/json")
     public Result<Object> checkout(Integer userId, String password){
         User user = userRepository.findUserByUserId(userId);
         if (user == null || !user.password.equals(password)) return Result.error("用户名或密码错误");
