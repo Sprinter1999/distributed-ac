@@ -31,9 +31,9 @@
         <form class="d-flex flex-column justify-content-center my-5 blue2 col-4 p-3">
             <div class="form-group d-flex">
                 <label class="text-white">用户id</label>
-                <input class="form-control w-50"/>
+                <input id="userId"  class="form-control w-50"/>
             </div>
-            <button id="login" type="submit" class="btn text-white border border-white d-block px-4"
+            <button id="cx" type="button" class="btn text-white border border-white d-block px-4"
                     style="margin: 0 auto;">
                 查询
             </button>
@@ -43,5 +43,26 @@
 
 <a href="index.html" class="back-btn">Back</a>
 </body>
+<script src="../Static/js/jquery-1.11.1.js"></script>
+<script>
+    $(function () {
 
+        $("#cx").click(function () {
+            var userId = $("#userId").val();
+            $.ajax({
+                "type": "post",
+                "url": "http://localhost:8080/reception/bill",
+                "data": {
+                    user_id: userId
+                },
+                success: function (data) {
+                    console.log("data",data);
+                    alert(data)
+                }
+            });
+
+        });
+
+    })
+</script>
 </html>

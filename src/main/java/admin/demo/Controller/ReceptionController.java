@@ -2,8 +2,7 @@ package admin.demo.Controller;
 
 import admin.demo.Entity.Bill;
 import admin.demo.Entity.Record;
-import admin.demo.Repository.BillRepository;
-import admin.demo.Repository.RecordRepository;
+import admin.demo.Repository.*;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
