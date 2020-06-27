@@ -21,16 +21,16 @@ public class ReceptionController {
     @Autowired
     RecordRepository recordrepository;
 
-    @ApiOperation(value = "返回首页")
-    @RequestMapping(value="/",method=RequestMethod.GET)
-    public String getIndex() {return "index";}
+//    @ApiOperation(value = "返回首页")
+//    @RequestMapping(value="/",method=RequestMethod.GET)
+//    public String getIndex() {return "index";}
 
 
-    @ApiOperation(value = "返回账单页面")
-    @RequestMapping(value = "/bill",method = RequestMethod.GET)
-    public String getBill(){
-        return "billPage";
-    }
+//    @ApiOperation(value = "返回账单页面")
+//    @RequestMapping(value = "/bill",method = RequestMethod.GET)
+//    public String getBill(){
+//        return "billPage";
+//    }
 
     @ApiOperation(value = "根据用户ID查询账单",notes = "返回用户所住房间这段时间的账单")
     @RequestMapping(value = "/bill",method = RequestMethod.POST)
@@ -47,11 +47,11 @@ public class ReceptionController {
         return userbill;
     }
 
-    @ApiOperation(value = "返回详单页面")
-    @RequestMapping(value = "/record",method = RequestMethod.GET)
-    public String getRecord(){
-        return "record";
-    }
+//    @ApiOperation(value = "返回详单页面")
+//    @RequestMapping(value = "/record",method = RequestMethod.GET)
+//    public String getRecord(){
+//        return "record";
+//    }
 
     @ApiOperation(value = "根据用户ID查询详单",notes = "返回用户住房时间内的详单")
     @RequestMapping(value ="/record",method =RequestMethod.POST)

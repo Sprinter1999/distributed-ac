@@ -53,22 +53,22 @@
                     <th scope="col">耗电量</th>
                 </tr>
                 </thead>
-              <tbody th:remove="all-but-first">
-              <!--/*@thymesVar id="records" type=""*/-->
-              <tr th:each="record : ${records}"">
-                <td th:text="${record.userId}"></td>
-                <td th:text="${record.roomId}"></td>
-                <!-- 一会儿再填充               -->
-                <td scope="col" th:text="${record.windSpeed}"></td>
-                <td scope="col" th:text="${record.startTemp}"></td>
-                <td scope="col" th:text="${record.setTemp}"></td>
-                <td scope="col" th:text="${record.requestStartTime}"></td>
-                <td scope="col" th:text="${record.actualStartTime}"></td>
-                <td scope="col" th:text="${record.endTime}"></td>
-                <td scope="col" th:text="${record.electricity}"></td>
+<!--              <tbody th:remove="all-but-first">-->
+<!--              &lt;!&ndash;/*@thymesVar id="records" type=""*/&ndash;&gt;-->
+<!--              <tr th:each="record : ${records}"">-->
+<!--                <td th:text="${record.userId}"></td>-->
+<!--                <td th:text="${record.roomId}"></td>-->
+<!--                &lt;!&ndash; 一会儿再填充               &ndash;&gt;-->
+<!--                <td scope="col" th:text="${record.windSpeed}"></td>-->
+<!--                <td scope="col" th:text="${record.startTemp}"></td>-->
+<!--                <td scope="col" th:text="${record.setTemp}"></td>-->
+<!--                <td scope="col" th:text="${record.requestStartTime}"></td>-->
+<!--                <td scope="col" th:text="${record.actualStartTime}"></td>-->
+<!--                <td scope="col" th:text="${record.endTime}"></td>-->
+<!--                <td scope="col" th:text="${record.electricity}"></td>-->
 
-              </tr>
-              </tbody>
+<!--              </tr>-->
+<!--              </tbody>-->
             </table>
             <div class="text-right" style="letter-spacing: 5px;">
                 总计

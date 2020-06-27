@@ -20,8 +20,8 @@ import java.util.Date;
 
 
 @RestController
+@Controller
 @RequestMapping("/user")
-@CrossOrigin
 public class UserController {
     @Autowired
     UserRepository userRepository;
@@ -30,9 +30,16 @@ public class UserController {
     @Autowired
     ConditionerService conditionerService;
 
+//    @ApiOperation(value="用户登录",notes="get方法")
+//    @GetMapping(value="/login")
+//    public String getLogin()
+//    {
+//        return "/login.html";
+//    }
+
     //用户登录
-    @ApiOperation(value = "用户登录",notes = "设置session")
-    @PostMapping(value = "/login", produces = "application/json")
+    @ApiOperation(value = "用户登录")
+    @PostMapping(value = "user/login", produces = "application/json")
     public Result<Object> login(Integer userId, String password, Model model){
         User user = userRepository.findUserByUserId(userId);
         if(user.userId==999 && user.password.equals(password)) return Result.error("admin");

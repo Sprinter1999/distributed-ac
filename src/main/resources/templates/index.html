@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -60,6 +60,7 @@
       <div class="row btns">
         <a
           href="login.html"
+          th:href="@{/login}"
           class="col m-5 blue1 text-decoration-none d-flex flex-column align-items-center justify-content-around"
         >
           <span>登录</span>
@@ -68,6 +69,7 @@
         </a>
         <a
           href="checkOut.html"
+          th:href="@{/checkOut}"
           class="col m-5 blue2 text-decoration-none d-flex flex-column align-items-center justify-content-around"
         >
           <span>退房</span>
@@ -77,6 +79,7 @@
         </a>
         <a
           href="record.html"
+          th:href="@{/record}"
           class="col m-5 blue3 text-decoration-none d-flex flex-column align-items-center justify-content-around"
         >
           <span>
@@ -86,6 +89,7 @@
         </a>
         <a
                 href="billPage.html"
+                th:href="@{/billPage}"
                 class="col m-5 blue3 text-decoration-none d-flex flex-column align-items-center justify-content-around"
         >
           <span>
