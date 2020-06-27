@@ -11,10 +11,9 @@ import javax.persistence.Id;
 @Entity
 public class User {
     @Id
-
     public Integer userId;
     public String password;
     public Integer roomId;
     public Long checkin;
-    public Long checkout = (long)0;
+    public Long checkout;
 }

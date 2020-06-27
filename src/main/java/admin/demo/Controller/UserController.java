@@ -34,6 +34,7 @@ public class UserController {
     public Result<Object> login(Integer userId, String password){
         User user = userRepository.findUserByUserId(userId);
         if (user == null || !user.password.equals(password)) return Result.error("用户名或密码错误");
+        if (user.checkout != null) return Result.error("用户已退房");
         Conditioner conditioner = conditionerRepository.findByUserId(userId);
         return Result.ok(conditioner);
     }
@@ -65,6 +66,7 @@ public class UserController {
     public Result<Object> checkout(Integer userId, String password){
         User user = userRepository.findUserByUserId(userId);
         if (user == null || !user.password.equals(password)) return Result.error("用户名或密码错误");
+        if (user.checkout != null) return Result.error("用户已退房");
         conditionerService.CheckOut(userId);
         return Result.ok("退房成功");
     }

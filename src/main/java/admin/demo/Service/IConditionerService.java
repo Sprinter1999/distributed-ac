@@ -1,5 +1,6 @@
 package admin.demo.Service;
 
+import admin.demo.Entity.Conditioner;
 import admin.demo.Entity.Record;
 
 public interface IConditionerService {
@@ -14,13 +15,13 @@ public interface IConditionerService {
      输入：房间ID roomId
      作用：将空调移出队列，设置为待机状态
      **/
-    public void StandByRequest(Integer roomId);
+    void StandByRequest(Integer roomId);
     /**
      * 管理员或房间关机时调用
      输入：房间ID roomId
      作用：将某个空调移出等待队列或服务队列
      **/
-    public void StopRequest(Integer roomId);
+    public Conditioner StopRequest(Integer roomId);
     /**
      * 周期性调度，每隔1分钟调用
      作用：对当前空调及房间状态进行更新

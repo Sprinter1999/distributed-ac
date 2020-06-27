@@ -91,23 +91,6 @@ public class ConditionerService implements IConditionerService {
 
     }
 
-    //某个房间进入待机状态时调用
-    //TODO:新增待机状态，直接进入待机状态
-    @Override
-    @Transactional
-    public void StandByRequest(Integer roomId){
-        //本房间的操作
-        Conditioner currentConditioner = cR.findByRoomId(roomId);
-        turnOffOrStandBy(currentConditioner, 3);
-
-        //其它房间的操作
-        ArrayList<Conditioner> waitConditionerList = cR.findByIsAtWorkOrderByWaitStartTimeAsc(1);
-        if (!waitConditionerList.isEmpty()){
-            Conditioner waitConditioner = waitConditionerList.get(0);
-            turnToServe(waitConditioner);
-        }
-    }
-
     //每隔1分钟调用
     @Scheduled(fixedRate = 60000)
     @Async
@@ -224,9 +207,9 @@ public class ConditionerService implements IConditionerService {
     //将处于等待队列或服务队列的空调关机
     @Override
     @Transactional
-    public void StopRequest(Integer roomId){
+    public Conditioner StopRequest(Integer roomId){
         Conditioner conditioner = cR.findByRoomId(roomId);
-        turnOffOrStandBy(conditioner, 0);
+        conditioner = turnOffOrStandBy(conditioner, 0);
         //检查服务队列是否有空闲
         ArrayList<Conditioner> serveConditionerList = cR.findByIsAtWorkOrderByServeStartTimeAsc(2);
         Sort sort = Sort.by(Direction.DESC, "windSpeed")
@@ -237,6 +220,7 @@ public class ConditionerService implements IConditionerService {
                 turnToServe(waitConditionerList.get(0));
             }
         }
+        return conditioner;
     }
 
     //用户退房时调用
@@ -259,6 +243,23 @@ public class ConditionerService implements IConditionerService {
         bR.save(bill);
         user.checkout = datetime;
         uR.save(user);
+    }
+
+    //某个房间进入待机状态时调用
+    //TODO:新增待机状态，直接进入待机状态
+    @Override
+    @Transactional
+    public void StandByRequest(Integer roomId){
+        //本房间的操作
+        Conditioner currentConditioner = cR.findByRoomId(roomId);
+        turnOffOrStandBy(currentConditioner, 3);
+
+        //其它房间的操作
+        ArrayList<Conditioner> waitConditionerList = cR.findByIsAtWorkOrderByWaitStartTimeAsc(1);
+        if (!waitConditionerList.isEmpty()){
+            Conditioner waitConditioner = waitConditionerList.get(0);
+            turnToServe(waitConditioner);
+        }
     }
 
     //将服务队列中的空调转入等待队列
@@ -306,7 +307,7 @@ public class ConditionerService implements IConditionerService {
 
     //关掉某房间的空调时调用
     //TODO:等待队列中的record记录结束不能存入数据库
-    void turnOffOrStandBy(Conditioner conditioner, Integer isAtWork){
+    Conditioner turnOffOrStandBy(Conditioner conditioner, Integer isAtWork){
         Date date = new Date();
         Long datetime = date.getTime();
         Record record = rR.findByRoomIdAndIsComplete(conditioner.roomId, 0);
@@ -321,6 +322,7 @@ public class ConditionerService implements IConditionerService {
         }
         conditioner.setIsAtWork(isAtWork);
         cR.save(conditioner);
+        return conditioner;
     }
 
 }
