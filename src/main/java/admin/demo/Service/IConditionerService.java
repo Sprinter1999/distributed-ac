@@ -15,7 +15,7 @@ public interface IConditionerService {
      输入：房间ID roomId
      作用：将空调移出队列，设置为待机状态
      **/
-    void StandByRequest(Integer roomId);
+    //void StandByRequest(Integer roomId);
     /**
      * 管理员或房间关机时调用
      输入：房间ID roomId

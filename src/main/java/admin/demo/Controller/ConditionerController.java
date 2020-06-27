@@ -35,18 +35,7 @@ public class ConditionerController {
     @ApiOperation(value = "设置温度、风速")
     @GetMapping(value = "/request", produces = "application/json")
     public Result<Object> setTemp(@RequestParam Integer roomId, @RequestParam Double temp, @RequestParam Integer windSpeed){
-        Date date = new Date();
-        Long datetime = date.getTime();
-        Conditioner conditioner = conditionerRepository.findByRoomId(roomId);
-        Record record = new Record();
-        record.userId = conditioner.userId;
-        record.roomId = roomId;
-        record.windSpeed = windSpeed;
-        record.startTemp = conditioner.curTemp;
-        record.setTemp = temp;
-        record.requestStartTime = datetime;
-        conditionerService.ServiceRequest(record);
-        conditioner = conditionerRepository.findByRoomId(roomId);
+        Conditioner conditioner = request(roomId, temp, windSpeed);
         return Result.ok(conditioner);
     }
 
@@ -58,6 +47,21 @@ public class ConditionerController {
             return Result.error("空调已处于关机状态");
         conditioner = conditionerService.StopRequest(roomId);
         return Result.ok(conditioner);
+    }
+
+    Conditioner request(Integer roomId, Double temp, Integer windSpeed){
+        Date date = new Date();
+        Long datetime = date.getTime();
+        Conditioner conditioner = conditionerRepository.findByRoomId(roomId);
+        Record record = new Record();
+        record.userId = conditioner.userId;
+        record.roomId = roomId;
+        record.windSpeed = windSpeed;
+        record.startTemp = conditioner.curTemp;
+        record.setTemp = temp;
+        record.requestStartTime = datetime;
+        conditionerService.ServiceRequest(record);
+        return conditionerRepository.findByRoomId(roomId);
     }
 
 }
