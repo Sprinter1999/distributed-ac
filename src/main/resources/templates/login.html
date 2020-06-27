@@ -119,7 +119,15 @@
                alert("登陆成功");
                location.href="user.html"
              } else {
-               alert(data.message);
+               if(data.message=='admin'){
+                 location.href="admin.html"
+               }else
+               if(data.message=='manager'){
+                 location.href="manager.html"
+               }else {
+                 alert(data.message);
+               }
+
              }
            }
          });
