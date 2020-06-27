@@ -131,7 +131,7 @@ public  class DemoApplicationTests {
         Conditioner conditioner = conditionerRepository.findByRoomId(roomId);
         if (conditioner.isAtWork == 0)//空调已关机
             return conditioner;
-        return request(roomId, conditioner.setTemp, windSpeed);
+        return request(roomId, temp, windSpeed);
     }
     //可以忽略
     private Conditioner request(Integer roomId, Double temp, Integer windSpeed){
