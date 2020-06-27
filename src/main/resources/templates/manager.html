@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>manager</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+  <link href="http://www.bootcss.com/p/bootstrap-datetimepicker/bootstrap-datetimepicker/css/datetimepicker.css"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../Static/css/style.css" />
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script
+    src="http://www.bootcss.com/p/bootstrap-datetimepicker/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+  <style>
+    h3 {
+      box-shadow: 20px 20px 3px #b3bacc;
+      letter-spacing: 10px;
+    }
+
+    .m-table th,
+    .m-table td {
+      border: 1px solid #000 !important;
+      text-align: center;
+      letter-spacing: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container p-5">
+    <h3 class="h3 py-4 px-5 my-5 blue3 text-white d-inline-flex align-items-center justify-content-around">
+      选择时间范围
+      <div class="input-append date form_datetime">
+        <input readonly />
+        <span class="add-on"><i class="icon-remove"></i></span>
+        <span class="add-on"><i class="icon-calendar"></i></span>
+      </div>
+      <span style="letter-spacing: 0px;margin: 10px;">至</span>
+
+      <div class="input-append date form_datetime">
+        <input readonly />
+        <span class="add-on"><i class="icon-remove"></i></span>
+        <span class="add-on"><i class="icon-calendar"></i></span>
+      </div>
+    </h3>
+    <table class="m-table table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">机号</th>
+          <th scope="col">运行时长</th>
+          <th scope="col">产生费 用</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row"></th>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row"></th>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row"></th>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row"></th>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row"></th>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-right" style="letter-spacing: 5px;">
+      产生总费用
+      <input class="form-control d-inline-block w-25" disabled />
+      元
+    </div>
+  </div>
+  <a href="index.html" class="back-btn">Back</a>
+
+  <script>
+    $(".form_datetime").datetimepicker({
+      format: "yyyy-mm-dd",
+      startView: "year",
+      maxView: "year",
+      minView: "month",
+      autoclose: true,
+      pickerPosition: "bottom-left",
+    });
+  </script>
+</body>
+
+</html>
