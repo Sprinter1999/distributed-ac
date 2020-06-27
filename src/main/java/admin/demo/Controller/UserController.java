@@ -33,7 +33,7 @@ public class UserController {
     //用户登录
     @ApiOperation(value = "用户登录",notes = "设置session")
     @PostMapping(value = "/login", produces = "application/json")
-    public Result<Object> login(Integer userId, String password, Model model){
+    public Result<Object> login(Integer userId, String password){
         User user = userRepository.findUserByUserId(userId);
         if(user.userId==999 && user.password.equals(password)) return Result.error("admin");
         else if (user.userId == 9999 && user.password.equals(password)) return Result.error("manager");
@@ -41,8 +41,7 @@ public class UserController {
         if (user == null || !user.password.equals(password)) return Result.error("用户名或密码错误");
         if (user.checkout != null) return Result.error("用户已退房");
         Conditioner conditioner = conditionerRepository.findByUserId(userId);
-        model.addAttribute("roominfo",conditioner);
-        return Result.ok("登录成功");
+        return Result.ok(conditioner);
     }
 
     //用户注册

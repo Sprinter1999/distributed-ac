@@ -100,7 +100,7 @@
     $("#login").click(function () {
       var userId = $("#userId").val();
       var password = $("#password").val();
-
+      var conditioner=null;
 
          $.ajax({
            "type": "post",
@@ -111,12 +111,11 @@
            },
            success: function (data) {
              if (data.success) {
-               var conditioner=$("room").val();
-               console.log(conditioner);
-               //conditioner= $("#room").val();
-              // sessionStorage.setItem('roomid',conditioner);
-               //alert("登陆成功"+conditioner);
-               //location.href="user.html"
+                conditioner=data.result.roomId;
+
+              sessionStorage.setItem('roomid',conditioner);
+               alert("登陆成功,您的房间号为"+sessionStorage.getItem('roomid'));
+               location.href="user.html"
              }
              else {
                if(data.message=="admin")
