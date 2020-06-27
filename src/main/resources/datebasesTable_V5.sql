@@ -50,12 +50,8 @@ CREATE TABLE Conditioner(
     PRIMARY KEY(room_id)
 )DEFAULT CHARSET=utf8;
 
-INSERT INTO Conditioner VALUE (1, 1, 26, 25, 25, 0, 0, 0, 0);
-INSERT INTO Conditioner VALUE (2, 2, 27, 25, 25, 0, 0, 0, 0);
-INSERT INTO Conditioner VALUE (3, 3, 26, 25, 25, 0, 0, 0, 0);
-INSERT INTO Conditioner VALUE (4, 4, 25, 25, 25, 0, 0, 0, 0);
-INSERT INTO Conditioner VALUE (5, 5, 26, 25, 25, 0, 0, 0, 0);
-INSERT INTO Conditioner VALUE (6, 6, 28, 25, 25, 0, 0, 0, 0);
-INSERT INTO Conditioner VALUE (7, 7, 27, 25, 25, 0, 0, 0, 0);
-INSERT INTO Conditioner VALUE (8, 8, 25, 25, 25, 0, 0, 0, 0);
-INSERT INTO Conditioner VALUE (9, 9, 25, 25, 25, 0, 0, 0, 0);
+INSERT INTO Conditioner VALUE (1, 1, 31, 25, 20, 0, 0, 0, 0),
+(2, 2, 27, 25, 25, 0, 0, 0, 0),
+(3, 3, 30, 25, 25, 0, 0, 0, 0),
+(4, 4, 32, 25, 25, 0, 0, 0, 0),
+(5, 5, 33, 24, 25, 0, 0, 0, 0);

@@ -24,10 +24,81 @@ public  class DemoApplicationTests {
     @Autowired
     ConditionerService conditionerService;
 
-
     @Test
-    public void Test() {
-
+    public void Test() throws InterruptedException {
+        //0min
+        turnOn(1);
+        Thread.currentThread().sleep(60000);
+        //1min
+        setT(1,20.0);turnOn(2);turnOn(5);
+        Thread.currentThread().sleep(60000);
+        //2min
+        turnOn(3);
+        Thread.currentThread().sleep(60000);
+        //3min
+        setT(2,19.0);turnOn(4);
+        Thread.currentThread().sleep(60000);
+        //4min
+        setT(5,24.0);
+        Thread.currentThread().sleep(60000);
+        //5min
+        setW(1,2);
+        Thread.currentThread().sleep(60000);
+        //6min
+        turnOff(2);
+        Thread.currentThread().sleep(60000);
+        //7min
+        turnOn(2);setW(5,2);
+        Thread.currentThread().sleep(60000);
+        //8min
+        Thread.currentThread().sleep(60000);
+        //9min
+        setT(1,22.0);setTW(4,19.0,2);
+        Thread.currentThread().sleep(60000);
+        //10min
+        Thread.currentThread().sleep(60000);
+        //11min
+        setT(2,23.0);
+        Thread.currentThread().sleep(60000);
+        //12min
+        setW(5,0);
+        Thread.currentThread().sleep(60000);
+        //13min
+        Thread.currentThread().sleep(60000);
+        //14min
+        turnOff(1);setTW(3,22.0,0);
+        Thread.currentThread().sleep(60000);
+        //15min
+        setTW(5,20.0,2);
+        Thread.currentThread().sleep(60000);
+        //16min
+        turnOff(2);
+        Thread.currentThread().sleep(60000);
+        //17min
+        setW(3,2);
+        Thread.currentThread().sleep(60000);
+        //18min
+        turnOn(1);setTW(4,20.0,1);
+        Thread.currentThread().sleep(60000);
+        //19min
+        turnOn(2);
+        Thread.currentThread().sleep(60000);
+        //20min
+        setT(5,25.0);
+        Thread.currentThread().sleep(60000);
+        //21min
+        Thread.currentThread().sleep(60000);
+        //22min
+        turnOff(3);
+        Thread.currentThread().sleep(60000);
+        //23min
+        turnOff(5);
+        Thread.currentThread().sleep(60000);
+        //24min
+        turnOff(1);
+        Thread.currentThread().sleep(60000);
+        //25min
+        turnOff(2);turnOff(4);
 
     }
 
