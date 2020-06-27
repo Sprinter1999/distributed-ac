@@ -98,7 +98,7 @@ public class ConditionerService implements IConditionerService {
     public void StandByRequest(Integer roomId){
         //本房间的操作
         Conditioner currentConditioner = cR.findByRoomId(roomId);
-        turnOffOrStandBy(currentConditioner, 4);
+        turnOffOrStandBy(currentConditioner, 3);
 
         //其它房间的操作
         ArrayList<Conditioner> waitConditionerList = cR.findByIsAtWorkOrderByWaitStartTimeAsc(1);
@@ -127,26 +127,40 @@ public class ConditionerService implements IConditionerService {
             Record record = rR.findByRoomIdAndIsComplete(conditioner.roomId, 0);//TODO:查找时加入了是否完成，改正了之前可能查找到多个Record的bug
             if(conditioner.isAtWork == 2){//房间处于服务队列
                 //房间温度变换
-                if(conditioner.windSpeed == 1){
-                    if(conditioner.setTemp > conditioner.curTemp){
+                double diff = conditioner.setTemp - conditioner.curTemp;
+                if(conditioner.windSpeed == 1){//中风
+                    if(diff > 0){
                         conditioner.curTemp += 0.5;
-                    }else{
+                        diff -= 0.5;
+                    }else if (diff < 0){
                         conditioner.curTemp -= 0.5;
+                        diff += 0.5;
                     }
-                }else if(conditioner.windSpeed == 0){
-                    if(conditioner.setTemp > conditioner.curTemp){
+                    if (Math.abs(diff) < 0.5)
+                        StandByRequest(conditioner.roomId);
+                }else if(conditioner.windSpeed == 0){//低风
+                    if(diff > 0){
                         conditioner.curTemp += 0.4;
-                    }else{
+                        diff -= 0.4;
+                    }else if (diff < 0){
                         conditioner.curTemp -= 0.4;
+                        diff += 0.4;
                     }
-                }else{
-                    if(conditioner.setTemp > conditioner.curTemp){
+                    if (Math.abs(diff) < 0.4)
+                        StandByRequest(conditioner.roomId);
+                }else{//高风
+                    if(diff > 0){
                         conditioner.curTemp += 0.6;
-                    }else{
+                        diff -= 0.6;
+                    }else if (diff < 0){
                         conditioner.curTemp -= 0.6;
+                        diff += 0.6;
                     }
+                    if (Math.abs(diff) < 0.6)
+                        StandByRequest(conditioner.roomId);
                 }
                 cR.save(conditioner);
+
                 //耗电量变换
                 if(conditioner.windSpeed == 1){
                     record.electricity += 0.5;
@@ -160,10 +174,22 @@ public class ConditionerService implements IConditionerService {
                 double diff = conditioner.curTemp - conditioner.initTemp;
                 if (diff >= 0.5){
                     conditioner.curTemp -= 0.5;
+                    diff -= 0.5;
                 }else if(diff <= -0.5) {
                     conditioner.curTemp += 0.5;
+                    diff += 0.5;
                 }
                 cR.save(conditioner);
+                if (conditioner.isAtWork == 3 && Math.abs(conditioner.curTemp - conditioner.setTemp) > 1){//重新发送启动请求
+                    Record record1 = new Record();
+                    record1.userId = conditioner.userId;
+                    record1.roomId = conditioner.roomId;
+                    record1.windSpeed = conditioner.windSpeed;
+                    record1.startTemp = conditioner.curTemp;
+                    record1.setTemp = conditioner.setTemp;
+                    record1.requestStartTime = datetime;
+                    rR.save(record1);
+                }
             }
         }
 
@@ -234,7 +260,6 @@ public class ConditionerService implements IConditionerService {
         user.checkout = datetime;
         uR.save(user);
     }
-
 
     //将服务队列中的空调转入等待队列
     void turnToWait(Conditioner conditioner){

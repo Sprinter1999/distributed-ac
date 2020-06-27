@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.security.auth.login.Configuration;
 import java.util.Date;
 
-@Controller
+@RestController
 @RequestMapping("/conditioner")
 public class ConditionerController {
     @Autowired
@@ -56,9 +56,4 @@ public class ConditionerController {
         return Result.ok("success");
     }
 
-    @ApiOperation(value = "待机")
-    public Result<Object> standBy(@RequestParam Integer roomId){
-        conditionerService.StandByRequest(roomId);
-        return Result.ok("success");
-    }
 }
