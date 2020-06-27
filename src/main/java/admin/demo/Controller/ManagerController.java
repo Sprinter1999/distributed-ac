@@ -36,7 +36,7 @@ public class ManagerController {
     @GetMapping
     @ApiOperation(value = "获取页面")
     public String manager__get(){
-        return "a";
+        return "manager";
     }
 
     @PostMapping
@@ -127,7 +127,7 @@ public class ManagerController {
             reports.add(temp);
         }
         model.addAttribute("reports",reports);
-        return "a";//用的时候改成展示页面的html名
+        return "manager";//用的时候改成展示页面的html名
     }
 
 }

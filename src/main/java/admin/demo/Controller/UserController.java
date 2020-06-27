@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController {
     @Autowired
     UserRepository userRepository;
@@ -31,24 +33,29 @@ public class UserController {
     //用户登录
     @ApiOperation(value = "用户登录",notes = "设置session")
     @PostMapping(value = "/login", produces = "application/json")
-    public Result<Object> login(Integer userId, String password){
+    public Result<Object> login(Integer userId, String password, Model model){
         User user = userRepository.findUserByUserId(userId);
+        if(user.userId==999 && user.password.equals(password)) return Result.error("admin");
+        else if (user.userId == 9999 && user.password.equals(password)) return Result.error("manager");
+
         if (user == null || !user.password.equals(password)) return Result.error("用户名或密码错误");
         if (user.checkout != null) return Result.error("用户已退房");
         Conditioner conditioner = conditionerRepository.findByUserId(userId);
-        return Result.ok(conditioner);
+        model.addAttribute("roominfo",conditioner);
+        return Result.ok("登录成功");
     }
 
     //用户注册
-    @ApiOperation(value = "用户注册",notes = "存储新用户")
+    @ApiOperation(value = "用户注册",notes = "存储新用户并跳转")
     @PostMapping(value = "/checkin", produces = "application/json")
-    public Result<Object> login(Integer userId, String password, Double initTemp){
+    public Result<Object> login(Integer userId, String password, Double initTemp, Model model){
         Date date = new Date();
         Long datetime = date.getTime();
         if (userRepository.findUserByUserId(userId) != null) return Result.error("用户已注册");
         Conditioner conditioner = new Conditioner();
         conditioner.userId = userId;
         conditioner.initTemp = initTemp;
+        conditioner.roomId=userId;
         conditionerRepository.save(conditioner);
         conditioner = conditionerRepository.findByUserId(userId);
         //System.out.println(conditioner);

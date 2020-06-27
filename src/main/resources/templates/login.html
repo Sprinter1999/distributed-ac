@@ -1,112 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>login</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>login</title>
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
-      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="../Static/css/style.css" />
+  <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          crossorigin="anonymous"
+  />
+  <link rel="stylesheet" href="../Static/css/style.css" />
 
-    <style>
-      form {
-        border: 1px solid #7789bb;
-        box-shadow: 20px 20px 3px #445da0;
-      }
+  <style>
+    form {
+      border: 1px solid #7789bb;
+      box-shadow: 20px 20px 3px #445da0;
+    }
 
-      p {
-        letter-spacing: 5px;
-      }
+    p {
+      letter-spacing: 5px;
+    }
 
-      label {
-        min-width: 100px;
-        padding: 10px;
-      }
-    </style>
-  </head>
-  <script src="js/jquery-1.11.1.js"></script>
+    label {
+      min-width: 100px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<script src="../Static/js/jquery-1.11.1.js"></script>
+
+<body>
+<div class="container p-5">
+  <div class="row my-5 p-3">
+    <form class="col m-5 p-3">
+      <p class="h3 py-2 m-auto">用户注册</p><br><br>
+      <div class="form-group d-flex">
+        <label class="d-block">用户id</label>
+        <input id="uid" class="form-control" placeholder="请输入用户id" />
+      </div>
+      <div class="form-group d-flex">
+        <label class="inline-block">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+        <input
+                id="pwd"
+                type="password"
+                class="form-control"
+                placeholder="请输入密码"
+        />
+      </div>
+      <div class="form-group d-flex">
+        <label class="inline-block">初始温度</label>
+        <input
+                id="wd"
+                class="form-control"
+                placeholder="请输入初始温度"
+        />
+      </div>
+      <button
+              id="register"
+              type="button"
+              class="btn blue1 text-white d-block m-auto px-4"
+      >
+        注册
+      </button>
+    </form>
+    <form class="col m-5 p-3">
+      <p class="h3 m-auto">用户登录</p><br></br>
+      <div class="form-group d-flex">
+        <label>用户id</label>
+        <input class="form-control" id="userId" placeholder="请输入用户id" />
+      </div>
+      <div class="form-group d-flex">
+        <label>密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+        <input
+                id="password"
+                type="password"
+                class="form-control"
+                placeholder="请输入密码"
+        />
+      </div>
+      <button
+              id="login"
+              type="button"
+              class="btn blue2 text-white d-block m-auto px-4"
+      >
+        登录
+      </button>
+    </form>
+  </div>
+</div>
+<a href="index.html" class="back-btn">Back</a>
+</body>
 <script>
   $(function () {
-    $("#login").click({
-      var id = $("#userId").val();
+
+    $("#login").click(function () {
+      var userId = $("#userId").val();
       var password = $("#password").val();
+       if(userId==='admin'&&password==='123456')
+       {location.href="admin.html";}
+       else {
+         $.ajax({
+           "type": "post",
+           "url": "http://localhost:8080/user/login",
+           "data": {
+             userId: userId,
+             password: password
+           },
+           success: function (data) {
+             if (data.success) {
+               sessionStorage.setItem('roomid',data.result.roomId);
+               alert("登陆成功");
+               location.href="user.html"
+             } else {
+               alert(data.message);
+             }
+           }
+         });
+       }
+    });
+    $("#register").click(function () {
+      var uid = $("#uid").val();
+      var pwd = $("#pwd").val();
+      var wd = $("#wd").val();
       $.ajax({
-        "url":"user/login",
+        "type":"post",
+        "url":"http://localhost:8080/user/checkin",
         "data":{
-          id:id,
-          password:password
-      },
+          userId:uid,
+          password:pwd,
+          initTemp:wd
+        },
         success:function (data) {
           if(data.success){
-            alert("登陆成功");
+            alert("注册成功");
+            window.location.reload();
+          }else{
+            alert(data.message);
           }
         }
       });
     });
   })
+
 </script>
-  <body>
-    <div class="container p-5">
-      <div class="row my-5 p-3">
-        <form class="col m-5 p-3">
-          <p class="h3 py-2 m-auto">用户注册</p><br><br>
-          <div class="form-group d-flex">
-            <label class="d-block">用户id</label>
-            <input class="form-control" placeholder="请输入用户id" />
-          </div>
-          <div class="form-group d-flex">
-            <label class="inline-block">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
-            <input
-              type="password"
-              class="form-control"
-              placeholder="请输入密码"
-            />
-          </div>
-          <div class="form-group d-flex">
-            <label class="inline-block">初始温度</label>
-            <input
-                    class="form-control"
-                    placeholder="请输入初始温度"
-            />
-          </div>
-          <button
-            id="register"
-            type="submit"
-            class="btn blue1 text-white d-block m-auto px-4"
-          >
-            注册
-          </button>
-        </form>
-        <form class="col m-5 p-3">
-          <p class="h3 m-auto">用户登录</p><br></br>
-          <div class="form-group d-flex">
-            <label>用户id</label>
-            <input class="form-control" id="userId" placeholder="请输入用户id" />
-          </div>
-          <div class="form-group d-flex">
-            <label>密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
-            <input
-                    id="password"
-              type="password"
-              class="form-control"
-              placeholder="请输入密码"
-            />
-          </div>
-          <button
-            id="login"
-            type="button"
-            class="btn blue2 text-white d-block m-auto px-4"
-          >
-            登录
-          </button>
-        </form>
-      </div>
-    </div>
-    <a href="index.html" class="back-btn">Back</a>
-  </body>
 </html>

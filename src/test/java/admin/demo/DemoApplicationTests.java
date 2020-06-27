@@ -1,13 +1,9 @@
 package admin.demo;
 
-import admin.demo.Comment.Result;
-import admin.demo.Controller.AdminController;
 import admin.demo.Entity.Conditioner;
 import admin.demo.Entity.Record;
 import admin.demo.Repository.ConditionerRepository;
 import admin.demo.Service.impl.ConditionerService;
-import io.swagger.annotations.ApiOperation;
-import org.hibernate.annotations.Synchronize;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +19,7 @@ public  class DemoApplicationTests {
     ConditionerRepository conditionerRepository;
     @Autowired
     ConditionerService conditionerService;
+
 
     @Test
     public void Test() throws InterruptedException {
@@ -99,7 +96,6 @@ public  class DemoApplicationTests {
         Thread.currentThread().sleep(60000);
         //25min
         turnOff(2);turnOff(4);
-
     }
 
     //开机

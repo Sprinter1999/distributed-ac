@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 @Service
 public class ConditionerService implements IConditionerService {
     @Autowired
@@ -95,6 +94,7 @@ public class ConditionerService implements IConditionerService {
         }
 
     }
+
 
     //每隔1分钟调用
     @Scheduled(fixedRate = 60000)
