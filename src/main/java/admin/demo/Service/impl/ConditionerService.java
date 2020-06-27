@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 @Service
 public class ConditionerService implements IConditionerService {
     @Autowired
@@ -114,7 +115,7 @@ public class ConditionerService implements IConditionerService {
         }
         for (Conditioner conditioner : allConditionerList){
             Record record = rR.findByRoomIdAndIsComplete(conditioner.roomId, 0);//TODO:查找时加入了是否完成，改正了之前可能查找到多个Record的bug
-                                                                                    //TODO:改正后依然出现了bug
+            //TODO:改正后依然出现了bug
             if(conditioner.isAtWork == 2){//房间处于服务队列
                 //房间温度变换
                 double diff = conditioner.setTemp - conditioner.curTemp;
