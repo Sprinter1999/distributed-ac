@@ -51,41 +51,22 @@
       <thead>
         <tr>
           <th scope="col">机号</th>
-          <th scope="col">运行时长</th>
+          <th scope="col">使用次数</th>
+          <th scope="col">最常用温度</th>
+          <th scope="col">最常用风速</th>
+          <th scope="col">达到目标次数</th>
+          <th scope="col">被调度次数</th>
+          <th scope="col">详单数</th>
           <th scope="col">产生费 用</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <th scope="row"></th>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <th scope="row"></th>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <th scope="row"></th>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <th scope="row"></th>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <th scope="row"></th>
-          <td></td>
-          <td></td>
-        </tr>
+      <tbody id="table">
+
       </tbody>
     </table>
     <div class="text-right" style="letter-spacing: 5px;">
       产生总费用
-      <input class="form-control d-inline-block w-25" disabled />
+      <input id="total" class="form-control d-inline-block w-25" disabled />
       元
     </div>
   </div>
@@ -100,6 +81,43 @@
       autoclose: true,
       pickerPosition: "bottom-left",
     });
+  </script>
+  <script src="../Static/js/jquery-1.11.1.js"></script>
+  <script>
+    $(function () {
+
+      $.ajax({
+        "type": "post",
+        "url": "http://localhost:8080/manager",
+        "data": {
+          "start":"1977-01-01",
+          "end":"2999-01-01"
+        },
+        success: function (data) {
+          $("#table").empty();
+          var total = 0;
+          for(var i=0;i<data.length;i++){
+            var result = data[i];
+            total+=result.costTotal;
+            var html="<tr>\n" +
+                    "            <th scope=\"row\">"+result.roomId+"</th>\n" +
+                    "            <td>"+result.useCount+"</td>\n" +
+                    "            <td>"+result.mostUseTem+"</td>\n" +
+                    "            <td>"+result.mostUseWind+"</td>\n" +
+                    "            <td>"+result.goalCount+"</td>\n" +
+                    "            <td>"+result.scheduleCount+"</td>\n" +
+                    "            <td>"+result.recordNum+"</td>\n" +
+                    "            <td>"+result.costTotal+"</td>\n" +
+                    "          </tr>";
+            $("#table").append(html);
+          }
+           $("#total").val(total);
+
+        }
+
+      });
+
+    })
   </script>
 </body>
 

@@ -111,6 +111,11 @@
            success: function (data) {
              if (data.success) {
                sessionStorage.setItem('roomid',data.result.roomId);
+               sessionStorage.setItem('userId',data.result.userId);
+               sessionStorage.setItem('isAtWork',data.result.isAtWork);
+               sessionStorage.setItem('curTemp',data.result.curTemp);
+               sessionStorage.setItem('windSpeed',data.result.windSpeed);
+
                alert("登陆成功");
                location.href="user.html"
              } else {

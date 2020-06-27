@@ -39,10 +39,10 @@ public class ManagerController {
         return "manager";
     }
 
-    @PostMapping
-    //@ResponseBody
+    @PostMapping(produces = "application/json")
+    @ResponseBody
     @ApiOperation(value = "返回日期")
-    public String manager__post(Model model,@RequestParam("startTime") Date start, @RequestParam("endTime") Date end){
+    public  List<ManagerReport> manager__post( Date start,  Date end){
         Long starttime = start.getTime();
         Long endtime = end.getTime();
         List<ManagerReport> reports = new ArrayList<ManagerReport>();//用于汇总格式化报告
@@ -126,8 +126,8 @@ public class ManagerController {
             temp.setCostTotal(electotal);//总费用
             reports.add(temp);
         }
-        model.addAttribute("reports",reports);
-        return "manager";//用的时候改成展示页面的html名
+
+        return reports;
     }
 
 }

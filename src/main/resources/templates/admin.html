@@ -30,7 +30,7 @@
       <h1 class="h1 py-4 px-5 my-5 blue3 d-inline-block text-white">
         空调运行情况
       </h1>
-      <table class="table table-bordered">
+      <table  class="table table-bordered">
         <thead>
           <tr>
             <th scope="col">机号</th>
@@ -40,70 +40,108 @@
             <th scope="col">操作</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <th scope="row"></th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-              <button type="button" class="btn btn-success">开启</button>
-              <button type="button" class="btn btn-danger">关闭</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"></th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-              <button type="button" class="btn btn-success">开启</button>
-              <button type="button" class="btn btn-danger">关闭</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"></th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-              <button type="button" class="btn btn-success">开启</button>
-              <button type="button" class="btn btn-danger">关闭</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"></th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-              <button type="button" class="btn btn-success">开启</button>
-              <button type="button" class="btn btn-danger">关闭</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"></th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-              <button type="button" class="btn btn-success">开启</button>
-              <button type="button" class="btn btn-danger">关闭</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"></th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-              <button type="button" class="btn btn-success">开启</button>
-              <button type="button" class="btn btn-danger">关闭</button>
-            </td>
-          </tr>
+        <tbody id="table">
+
         </tbody>
       </table>
     </div>
     <a href="../../../../../../hotel_FP3.0/index.html" class="back-btn">Back</a>
   </body>
+  <script src="../Static/js/jquery-1.11.1.js"></script>
+  <script>
+    $(function () {
+
+        $.ajax({
+          "type": "get",
+          "url": "http://localhost:8080/admin/monitor",
+          "data": {
+          },
+          success: function (data) {
+            $("#table").empty();
+
+            for(var i=0;i<data.length;i++){
+              var result = data[i];
+              var wind ="";
+              var isAtWork="";
+              if(result.windSpeed==0){
+                wind="低风";
+              }
+              if(result.windSpeed==1){
+                wind="中风";
+              }
+              if(result.windSpeed==2){
+                wind="高风";
+              }
+
+              var isAtWork=""
+              if(result.isAtWork==0){
+                isAtWork="不工作";
+              }
+              if(result.isAtWork==1){
+                isAtWork="等待";
+              }
+              if(result.isAtWork==2){
+                isAtWork="服务";
+              }
+              if(result.isAtWork==3){
+                isAtWork="待机";
+              }
+              var html="<tr>\n" +
+                      "            <th scope=\"row\">"+result.roomId+"</th>\n" +
+                      "            <td>"+isAtWork+"</td>\n" +
+                      "            <td>"+result.curTemp+"</td>\n" +
+                      "            <td>"+wind+"</td>\n" +
+                      "            <td>\n" +
+                      "              <button tid="+result.roomId+" type=\"button\" id='open' class=\"btn btn-success\">开启</button>\n" +
+                      "              <button tid="+result.roomId+" type=\"button\" id='close' class=\"btn btn-danger\">关闭</button>\n" +
+                      "            </td>\n" +
+                      "          </tr>";
+              $("#table").append(html);
+              }
+              $("#open").click(function () {
+                var roomId = $(this).attr("tid");
+                var isAtWork = "1";
+                $.ajax({
+                  "type": "get",
+                  "url": "http://localhost:8080/admin/"+roomId,
+                  "data": {
+                    isAtWork: isAtWork
+                  },
+                  success: function (data) {
+                    if (data.success) {
+                      alert("成功开机");
+                      window.location.reload();
+                    } else {
+                      alert(data.message);
+                    }
+                  }
+                });
+              });
+
+            $("#close").click(function () {
+              var roomId = $(this).attr("tid");
+              var isAtWork = "0";
+              $.ajax({
+                "type": "get",
+                "url": "http://localhost:8080/admin/"+roomId,
+                "data": {
+                  isAtWork: isAtWork
+                },
+                success: function (data) {
+                  if (data.success) {
+                    alert("成功关机");
+                    window.location.reload();
+                  } else {
+                    alert(data.message);
+                  }
+                }
+              });
+            });
+
+            }
+
+        });
+
+    })
+  </script>
 </html>

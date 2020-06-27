@@ -42,7 +42,7 @@ public class UserController {
         if (user.checkout != null) return Result.error("用户已退房");
         Conditioner conditioner = conditionerRepository.findByUserId(userId);
         model.addAttribute("roominfo",conditioner);
-        return Result.ok("登录成功");
+        return Result.ok(conditioner);
     }
 
     //用户注册

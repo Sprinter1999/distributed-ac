@@ -42,23 +42,23 @@
             </div>-->
             <div class="form-group d-flex">
                 <label class="inline-block">当前房间id</label>
-                <input class="form-control" disabled/>
+                <input id="roomId" class="form-control" disabled/>
             </div>
             <div class="form-group d-flex">
                 <label class="inline-block">用户id</label>
-                <input class="form-control" disabled/>
+                <input id="userId" class="form-control" disabled/>
             </div>
             <div class="form-group d-flex">
                 <label class="inline-block">当前温度</label>
-                <input class="form-control" disabled/>
+                <input id="curTemp" class="form-control" disabled/>
             </div>
             <div class="form-group d-flex">
                 <label class="inline-block">当前工作状态</label>
-                <input class="form-control" disabled/>
+                <input id="isAtWork" class="form-control" disabled/>
             </div>
             <div class="form-group d-flex">
                 <label class="inline-block">当前风速</label>
-                <input class="form-control" disabled/>
+                <input id="dqfs" class="form-control" disabled/>
             </div>
         </form>
         <form class="col m-5 p-3">
@@ -69,22 +69,169 @@
             </div>-->
             <div class="form-group d-flex">
                 <label class="inline-block">温度</label>
-                <input class="form-control"/>
+                <input id="temp" class="form-control"/>
             </div>
             <div class="form-group d-flex">
                 <label class="inline-block">风速</label>
-                <input class="form-control"/>
+                <input id="windSpeed" class="form-control"/>
             </div>
             <button
-                    type="submit"
+                    id="up"
+                    type="button"
                     class="btn orange text-white d-block m-auto px-4"
             >确认</button>
           <br/>
           <br/>
-          <button type="button" class="btn orange text-white d-block m-auto px-4" style="color: crimson">关机</button>
+          <button type="button" id="close" class="btn orange text-white d-block m-auto px-4" style="color: crimson">关机</button>
         </form>
     </div>
 </div>
 <a href="index.html" class="back-btn">Back</a>
 </body>
+<script src="../Static/js/jquery-1.11.1.js"></script>
+<script>
+    $(function () {
+        $("#roomId").val(sessionStorage.getItem("roomid"));
+        $("#userId").val(sessionStorage.getItem("userId"));
+        var work = sessionStorage.getItem("isAtWork");
+
+        var isAtWork=""
+        if(work==0){
+            isAtWork="不工作";
+        }
+        if(work==1){
+            isAtWork="等待";
+        }
+        if(work==2){
+            isAtWork="服务";
+        }
+        if(work==3){
+            isAtWork="待机";
+        }
+        var windSpeed=sessionStorage.getItem("windSpeed");
+        var wind ="";
+        debugger
+        if(windSpeed==0){
+            wind="低风";
+        }
+        if(windSpeed==1){
+            wind="中风";
+        }
+        if(windSpeed==2){
+            wind="高风";
+        }
+        $("#isAtWork").val(isAtWork);
+        $("#curTemp").val(sessionStorage.getItem("curTemp"));
+        $("#dqfs").val(windSpeed);
+
+
+        $("#up").click(function () {
+            var temp = $("#temp").val();
+            var windSpeed = $("#windSpeed").val();
+            var roomId = $("#roomId").val();
+            $.ajax({
+                "type":"get",
+                "url":"http://localhost:8080/conditioner/request",
+                "data":{
+                    temp:temp,
+                    windSpeed:windSpeed,
+                    roomId:roomId
+                },
+                success:function (data) {
+                    if(data.success){
+                        alert("设置成功");
+                        var result = data.result;
+
+                        var wind ="";
+                        if(result.windSpeed==0){
+                            wind="低风";
+                        }
+                        if(result.windSpeed==1){
+                            wind="中风";
+                        }
+                        if(result.windSpeed==2){
+                            wind="高风";
+                        }
+
+                        $("#roomId").val(result.roomId);
+                        $("#userId").val(result.userId);
+                        var work = result.isAtWork;
+
+                        var isAtWork=""
+                        if(work==0){
+                            isAtWork="不工作";
+                        }
+                        if(work==1){
+                            isAtWork="等待";
+                        }
+                        if(work==2){
+                            isAtWork="服务";
+                        }
+                        if(work==3){
+                            isAtWork="待机";
+                        }
+                        $("#isAtWork").val(isAtWork);
+                        $("#curTemp").val(result.curTemp);
+                        $("#dqfs").val(wind);
+                    }else{
+                        alert(data.message);
+                    }
+                }
+            });
+        });
+
+
+        $("#close").click(function () {
+            var roomId = $("#roomId").val();
+            $.ajax({
+                "type":"get",
+                "url":"http://localhost:8080/conditioner/off",
+                "data":{
+
+                    roomId:roomId
+                },
+                success:function (data) {
+                    if(data.success){
+                        alert("关机成功");
+                        var result = data.result;
+
+                        var wind ="";
+                        if(result.windSpeed==0){
+                            wind="低风";
+                        }
+                        if(result.windSpeed==1){
+                            wind="中风";
+                        }
+                        if(result.windSpeed==2){
+                            wind="高风";
+                        }
+
+                        $("#roomId").val(result.roomId);
+                        $("#userId").val(result.userId);
+                        var work = result.isAtWork;
+
+                        var isAtWork=""
+                        if(work==0){
+                            isAtWork="不工作";
+                        }
+                        if(work==1){
+                            isAtWork="等待";
+                        }
+                        if(work==2){
+                            isAtWork="服务";
+                        }
+                        if(work==3){
+                            isAtWork="待机";
+                        }
+                        $("#isAtWork").val(isAtWork);
+                        $("#curTemp").val(result.curTemp);
+                        $("#dqfs").val(wind);
+                    }else{
+                        alert(data.message);
+                    }
+                }
+            });
+        });
+    })
+</script>
 </html>
