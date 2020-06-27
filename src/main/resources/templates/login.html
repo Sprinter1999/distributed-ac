@@ -98,21 +98,27 @@
     $("#login").click(function () {
       var userId = $("#userId").val();
       var password = $("#password").val();
-      $.ajax({
-        "type":"post",
-        "url":"http://localhost:8080/user/login",
-        "data":{
-          userId:userId,
-          password:password
-        },
-        success:function (data) {
-          if(data.success){
-            alert("登陆成功");
-          }else{
-            alert(data.message);
-          }
-        }
-      });
+       if(userId==='admin'&&password==='123456')
+       {location.href="admin.html";}
+       else {
+         $.ajax({
+           "type": "post",
+           "url": "http://localhost:8080/user/login",
+           "data": {
+             userId: userId,
+             password: password
+           },
+           success: function (data) {
+             if (data.success) {
+               sessionStorage.setItem('roomid',data.result.roomId);
+               alert("登陆成功");
+               location.href="user.html"
+             } else {
+               alert(data.message);
+             }
+           }
+         });
+       }
     });
     $("#register").click(function () {
       var uid = $("#uid").val();
