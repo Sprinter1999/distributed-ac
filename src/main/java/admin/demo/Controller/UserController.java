@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
     @Autowired
@@ -50,6 +50,7 @@ public class UserController {
         conditioner.initTemp = initTemp;
         conditionerRepository.save(conditioner);
         conditioner = conditionerRepository.findByUserId(userId);
+        //System.out.println(conditioner);
         User user = new User();
         user.userId = userId;
         user.password = password;

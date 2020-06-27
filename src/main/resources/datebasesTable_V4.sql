@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS  Record;
 DROP TABLE IF EXISTS  Conditioner;
 
 CREATE TABLE User(
-  user_id INT AUTO_INCREMENT ,
+  user_id INT NOT NULL,
   PASSWORD NVARCHAR(20),
   room_id INT,
   checkin BIGINT,
@@ -38,7 +38,7 @@ CREATE TABLE Record(
 )DEFAULT CHARSET=utf8;
 
 CREATE TABLE Conditioner(
-    room_id INT,
+    room_id INT AUTO_INCREMENT,
     user_id INT,
     init_temp DOUBLE DEFAULT 25,
     set_temp DOUBLE DEFAULT 25,

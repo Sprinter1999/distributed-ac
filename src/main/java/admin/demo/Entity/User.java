@@ -11,7 +11,7 @@ import javax.persistence.Id;
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     public Integer userId;
     public String password;
     public Integer roomId;
