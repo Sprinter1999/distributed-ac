@@ -330,6 +330,8 @@ public class ConditionerService implements IConditionerService {
             }
         }
         conditioner.setIsAtWork(isAtWork);
+        if(isAtWork == 0)
+            conditioner.curTemp = conditioner.initTemp;
         cR.save(conditioner);
         return conditioner;
     }
