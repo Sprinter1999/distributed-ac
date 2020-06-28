@@ -30,27 +30,6 @@ public class UserController {
     @Autowired
     ConditionerService conditionerService;
 
-//    @ApiOperation(value="用户登录",notes="get方法")
-//    @GetMapping(value="/login")
-//    public String getLogin()
-//    {
-//        return "/login.html";
-//    }
-
-    //用户登录
-    @ApiOperation(value = "用户登录")
-    @PostMapping(value = "user/login", produces = "application/json")
-    public Result<Object> login(Integer userId, String password, Model model){
-        User user = userRepository.findUserByUserId(userId);
-        if(user.userId==999 && user.password.equals(password)) return Result.error("admin");
-        else if (user.userId == 9999 && user.password.equals(password)) return Result.error("manager");
-
-        if (user == null || !user.password.equals(password)) return Result.error("用户名或密码错误");
-        if (user.checkout != null) return Result.error("用户已退房");
-        Conditioner conditioner = conditionerRepository.findByUserId(userId);
-        model.addAttribute("roominfo",conditioner);
-        return Result.ok(conditioner);
-    }
 
     //用户注册
     @ApiOperation(value = "用户注册",notes = "存储新用户并跳转")

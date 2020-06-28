@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -41,24 +41,25 @@
               <input class="form-control" disabled />
             </div>-->
             <div class="form-group d-flex">
-                <label class="inline-block">当前房间id</label>
-                <input id="roomId" class="form-control" disabled/>
+                <label class="inline-block" >当前房间id</label>
+                <p id="roomId" class="form-control" th:text="${userLogin.userId}" />
+<!--                <p th:text="'id: ' + ${greeting.id}" />-->
             </div>
             <div class="form-group d-flex">
-                <label class="inline-block">用户id</label>
-                <input id="userId" class="form-control" disabled/>
+                <label class="inline-block" >用户id</label>
+                <p id="userId"  th:text="${userLogin.userId}" class="form-control" />
             </div>
             <div class="form-group d-flex">
                 <label class="inline-block">当前温度</label>
-                <input id="curTemp" class="form-control" disabled/>
+                <p id="curTemp" class="form-control" disabled/>
             </div>
             <div class="form-group d-flex">
                 <label class="inline-block">当前工作状态</label>
-                <input id="isAtWork" class="form-control" disabled/>
+                <p id="isAtWork" class="form-control" disabled/>
             </div>
             <div class="form-group d-flex">
                 <label class="inline-block">当前风速</label>
-                <input id="dqfs" class="form-control" disabled/>
+                <p id="dqfs" class="form-control" disabled/>
             </div>
         </form>
         <form class="col m-5 p-3">

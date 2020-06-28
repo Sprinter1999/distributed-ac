@@ -65,11 +65,12 @@
         注册
       </button>
     </form>
-    <form class="col m-5 p-3" th:href="@{/user/login}">
+
+    <form class="col m-5 p-3" th:action="@{/userLogin}" th:href="@{/userLogin}" th:object="${userLogin}" method="post">
       <p class="h3 m-auto">用户登录</p><br></br>
       <div class="form-group d-flex">
         <label>用户id</label>
-        <input class="form-control" id="userId" placeholder="请输入用户id" />
+        <input class="form-control" id="userId" th:field="*{userId}" placeholder="请输入用户id" />
       </div>
       <div class="form-group d-flex">
         <label>密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
@@ -78,84 +79,85 @@
                 type="password"
                 class="form-control"
                 placeholder="请输入密码"
+                th:field="*{userId}"
         />
       </div>
-      <button
-              id="login"
-              type="button"
-              class="btn blue2 text-white d-block m-auto px-4"
-      >
-        登录
+      <input type="submit" value="Submit" text="登录" class="btn blue2 text-white d-block m-auto px-4"/>
+<!--      <button-->
+<!--              id="login"-->
+<!--              type="button"-->
+<!--      >-->
+
       </button>
     </form>
   </div>
 </div>
 <a href="index.html" class="back-btn">Back</a>
 </body>
-<script>
-  $(function () {
+<!--<script>-->
+<!--  $(function () {-->
 
-    $("#login").click(function () {
-      var userId = $("#userId").val();
-      var password = $("#password").val();
-       if(userId==='admin'&&password==='123456')
-       {location.href="admin.html";}
-       else {
-         $.ajax({
-           "type": "post",
-           "url": "http://localhost:8080/user/login",
-           "data": {
-             userId: userId,
-             password: password
-           },
-           success: function (data) {
-             if (data.success) {
-               sessionStorage.setItem('roomid',data.result.roomId);
-               sessionStorage.setItem('userId',data.result.userId);
-               sessionStorage.setItem('isAtWork',data.result.isAtWork);
-               sessionStorage.setItem('curTemp',data.result.curTemp);
-               sessionStorage.setItem('windSpeed',data.result.windSpeed);
+<!--    $("#login").click(function () {-->
+<!--      var userId = $("#userId").val();-->
+<!--      var password = $("#password").val();-->
+<!--       if(userId==='admin'&&password==='123456')-->
+<!--       {location.href="admin.html";}-->
+<!--       else {-->
+<!--         $.ajax({-->
+<!--           "type": "post",-->
+<!--           "url": "http://localhost:8080/user/login",-->
+<!--           "data": {-->
+<!--             userId: userId,-->
+<!--             password: password-->
+<!--           },-->
+<!--           success: function (data) {-->
+<!--             if (data.success) {-->
+<!--               sessionStorage.setItem('roomid',data.result.roomId);-->
+<!--               sessionStorage.setItem('userId',data.result.userId);-->
+<!--               sessionStorage.setItem('isAtWork',data.result.isAtWork);-->
+<!--               sessionStorage.setItem('curTemp',data.result.curTemp);-->
+<!--               sessionStorage.setItem('windSpeed',data.result.windSpeed);-->
 
-               alert("登陆成功");
-               location.href="user.html"
-             } else {
-               if(data.message=='admin'){
-                 location.href="admin.html"
-               }else
-               if(data.message=='manager'){
-                 location.href="manager.html"
-               }else {
-                 alert(data.message);
-               }
+<!--               alert("登陆成功");-->
+<!--               location.href="user.html"-->
+<!--             } else {-->
+<!--               if(data.message=='admin'){-->
+<!--                 location.href="admin.html"-->
+<!--               }else-->
+<!--               if(data.message=='manager'){-->
+<!--                 location.href="manager.html"-->
+<!--               }else {-->
+<!--                 alert(data.message);-->
+<!--               }-->
 
-             }
-           }
-         });
-       }
-    });
-    $("#register").click(function () {
-      var uid = $("#uid").val();
-      var pwd = $("#pwd").val();
-      var wd = $("#wd").val();
-      $.ajax({
-        "type":"post",
-        "url":"http://localhost:8080/user/checkin",
-        "data":{
-          userId:uid,
-          password:pwd,
-          initTemp:wd
-        },
-        success:function (data) {
-          if(data.success){
-            alert("注册成功");
-            window.location.reload();
-          }else{
-            alert(data.message);
-          }
-        }
-      });
-    });
-  })
+<!--             }-->
+<!--           }-->
+<!--         });-->
+<!--       }-->
+<!--    });-->
+<!--    $("#register").click(function () {-->
+<!--      var uid = $("#uid").val();-->
+<!--      var pwd = $("#pwd").val();-->
+<!--      var wd = $("#wd").val();-->
+<!--      $.ajax({-->
+<!--        "type":"post",-->
+<!--        "url":"http://localhost:8080/user/checkin",-->
+<!--        "data":{-->
+<!--          userId:uid,-->
+<!--          password:pwd,-->
+<!--          initTemp:wd-->
+<!--        },-->
+<!--        success:function (data) {-->
+<!--          if(data.success){-->
+<!--            alert("注册成功");-->
+<!--            window.location.reload();-->
+<!--          }else{-->
+<!--            alert(data.message);-->
+<!--          }-->
+<!--        }-->
+<!--      });-->
+<!--    });-->
+<!--  })-->
 
-</script>
+<!--</script>-->
 </html>
