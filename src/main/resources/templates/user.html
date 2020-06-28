@@ -95,9 +95,10 @@
     $(function () {
 
 
-        $("#roomId").val(sessionStorage.getItem("roomid"));
-        $("#userId").val(sessionStorage.getItem("userId"));
+        //$("#roomId").val(sessionStorage.getItem("roomid"));
+       // $("#userId").val(sessionStorage.getItem("userId"));
         var work = sessionStorage.getItem("isAtWork");
+
 
         var isAtWork=""
         if(work==0){
@@ -112,7 +113,7 @@
         if(work==3){
             isAtWork="待机";
         }
-        var windSpeed=sessionStorage.getItem("windSpeed");
+        var windSpeed=sessionStorage.getItem("");
         var wind ="";
         debugger
         if(windSpeed==0){
@@ -124,20 +125,50 @@
         if(windSpeed==2){
             wind="高风";
         }
-        $("#isAtWork").html(isAtWork);
-        $("#curTemp").html(sessionStorage.getItem("curTemp"));
-        $("#dqfs").html(wind);
+        //$("#isAtWork").html(isAtWork);
+       // $("#curTemp").html(sessionStorage.getItem("curTemp"));
+        //$("#dqfs").html(wind);
 
         setInterval(update,1000);
         function update(){
-            var roomId = $("#roomId").val();
+            var roomId = [[${userLogin.userId}]];
             $.ajax({
                 "type":"get",
                 "url":"http://localhost:8080/conditioner/information",
                 "data":{roomId:roomId},
                 success:function (data) {
                         if(data.success){
-                            $("#curTemp").html(data.result.curTemp);
+                            var m=data.result;
+                            $("#curTemp").html(data.result.curTemp.toFixed(2));
+                            var result = data.result;
+
+                            var wind ="";
+                            if(result.windSpeed==0){
+                                wind="低风";
+                            }
+                            if(result.windSpeed==1){
+                                wind="中风";
+                            }
+                            if(result.windSpeed==2){
+                                wind="高风";
+                            }
+                            $("#dqsf").html(wind);
+                            var work = result.isAtWork;
+
+                            var isAtWork=""
+                            if(work==0){
+                                isAtWork="不工作";
+                            }
+                            if(work==1){
+                                isAtWork="等待";
+                            }
+                            if(work==2){
+                                isAtWork="服务";
+                            }
+                            if(work==3){
+                                isAtWork="待机";
+                            }
+                            $("#isAtWork").html(isAtWork);
                         }
                         else alert(data.message);
                 }
@@ -147,7 +178,7 @@
         $("#up").click(function () {
             var temp = $("#temp").val();
             var windSpeed = $("#windSpeed").val();
-            var roomId = $("#roomId").val();
+            var roomId = [[${userLogin.userId}]];
             $.ajax({
                 "type":"get",
                 "url":"http://localhost:8080/conditioner/request",
@@ -201,7 +232,7 @@
 
 
         $("#close").click(function () {
-            var roomId = $("#roomId").val();
+            var roomId = [[${userLogin.userId}]];
             $.ajax({
                 "type":"get",
                 "url":"http://localhost:8080/conditioner/off",
