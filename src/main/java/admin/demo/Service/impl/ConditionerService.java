@@ -99,9 +99,8 @@ public class ConditionerService implements IConditionerService {
     //每隔1分钟调用
     @Scheduled(fixedRate = 60000)
     @Async
-    @Override
     @Transactional
-    public void Schedule(){
+    void Schedule(){
         logger.info("房间当前时间下的状态.状态如下{}", cR.findAll());
         Date date = new Date();
         long datetime = date.getTime();
@@ -232,6 +231,7 @@ public class ConditionerService implements IConditionerService {
 
     //用户退房时调用
     //TODO:关掉房间的空调，存储总账单，设置用户退出时间
+    @Override
     public void CheckOut(Integer userId){
         Date date = new Date();
         Long datetime = date.getTime();
@@ -252,10 +252,11 @@ public class ConditionerService implements IConditionerService {
         uR.save(user);
     }
 
+
     //某个房间进入待机状态时调用
     //TODO:新增待机状态，直接进入待机状态
     @Transactional
-    public void standByRequest(Integer roomId){
+    void standByRequest(Integer roomId){
         //本房间的操作
         Conditioner currentConditioner = cR.findByRoomId(roomId);
         turnOffOrStandBy(currentConditioner, 3);
