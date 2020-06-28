@@ -4,7 +4,9 @@ import admin.demo.Comment.Result;
 import admin.demo.Dto.UserLogin;
 import admin.demo.Entity.Conditioner;
 import admin.demo.Entity.User;
-import io.swagger.annotations.ApiOperation;
+import admin.demo.Repository.ConditionerRepository;
+import admin.demo.Repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +14,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Date;
+
 @Controller
 @RequestMapping("/")
 public class PageController {
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    ConditionerRepository conditionerRepository;
 
     @GetMapping("/login")
     String login(Model model)
@@ -58,6 +66,25 @@ public class PageController {
         }
     }
 
+    @PostMapping("/userReg")
+    String userReg(@ModelAttribute UserLogin userLogin){
+        Date date = new Date();
+        Long datetime = date.getTime();
+        Conditioner conditioner = new Conditioner();
+        conditioner.userId = (int)userLogin.userId;
+        conditioner.initTemp = userLogin.inittemp;
+        conditioner.roomId=(int)userLogin.userId;
+        conditionerRepository.save(conditioner);
+        conditioner = conditionerRepository.findByUserId((int)userLogin.userId);
+        //System.out.println(conditioner);
+        User user = new User();
+        user.userId = (int)userLogin.userId;
+        user.password = userLogin.password;
+        user.roomId = conditioner.roomId;
+        user.checkin = datetime;
+        userRepository.save(user);
+        return "user";
+    }
 //    //用户登录
 //    @ApiOperation(value = "用户登录")
 //    @PostMapping(value = "login", produces = "application/json")
