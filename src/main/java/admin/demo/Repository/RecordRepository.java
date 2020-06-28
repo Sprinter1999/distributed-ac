@@ -12,6 +12,8 @@ public interface RecordRepository extends JpaRepository<Record,Integer> {
     @Query(value = "select*from  record where user_id=?1",nativeQuery=true)
     public List<Record> getByUserId(Integer user_id);
 
+    @Query(value = "select sum(electricity) from  record where user_id=?1",nativeQuery=true)
+    public Double gettTotalfeeByUserId(Integer user_id);
 
     List<Record> findByRoomIdAndEndTimeGreaterThanAndRequestStartTimeIsLessThanOrderByRequestStartTime(Integer RoomId, Long EndTime, Long RequestStartTime);
 

@@ -2,6 +2,7 @@ package admin.demo.Controller;
 
 import admin.demo.Entity.Bill;
 import admin.demo.Entity.Record;
+import admin.demo.Entity.User;
 import admin.demo.Repository.*;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import admin.demo.Dto.ReceptionBill;
 import org.thymeleaf.context.Context;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -20,6 +22,8 @@ public class ReceptionController {
     BillRepository billrepository;
     @Autowired
     RecordRepository recordrepository;
+    @Autowired
+    UserRepository userRepository;
 
 //    @ApiOperation(value = "返回首页")
 //    @RequestMapping(value="/",method=RequestMethod.GET)
@@ -35,16 +39,19 @@ public class ReceptionController {
     @ApiOperation(value = "根据用户ID查询账单",notes = "返回用户所住房间这段时间的账单")
     @RequestMapping(value = "/bill",method = RequestMethod.POST)
     @ResponseBody
-    public ReceptionBill postBill( @RequestParam Integer user_id){
-        ReceptionBill userbill=new ReceptionBill();
-         Bill bill=billrepository.getBillById(user_id);
-         userbill.setUserId(bill.userId);
-         userbill.setRoomId(bill.roomId);
-         userbill.setCostTotal(bill.totalFee);
-         userbill.setCheckin(bill.checkin);
-         userbill.setCheckout(bill.checkout);
-        //model.addAttribute("userbill",userbill);
-        return userbill;
+    public String postBill( @RequestParam Integer user_id){
+         Bill bill = new Bill();
+         User user = userRepository.findUserByUserId(user_id);
+         bill.setCheckin(user.checkin);
+         bill.setCheckout(user.checkout);
+         bill.setRoomId(user.roomId);
+         bill.setUserId(user_id);
+         bill.setTotalFee(recordrepository.gettTotalfeeByUserId(user_id));
+         billrepository.save(bill);
+        Date datein = new Date(bill.checkin);
+        Date dateout = new Date(bill.checkout);
+        String data = "用户id："+bill.userId.toString()+" 房间号:"+bill.roomId+" 入住时间:"+datein+" 退房时间:"+dateout+" 总费用:"+bill.totalFee;
+        return data;
     }
 
 //    @ApiOperation(value = "返回详单页面")
