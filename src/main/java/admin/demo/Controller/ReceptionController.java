@@ -65,9 +65,9 @@ public class ReceptionController {
     @ResponseBody
     public String postRecord(Model model,@RequestParam Integer user_id){
        //record sort=recordrepository.getByUserId(user_id);
+        System.out.println("收到请求"+user_id);
        List<Record> records=new ArrayList<Record>(recordrepository.getByUserId(user_id));
        model.addAttribute("records",records);
        return "record";
-
     }
 }

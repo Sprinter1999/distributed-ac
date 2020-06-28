@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>Good Thymes Virtual Grocery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all" href="../../static/css/gtvg.css" th:href="@{/css/gtvg.css}" />
+  </head>
+
+  <body>
+
+    <h1>Record list</h1>
+  
+    <table>
+      <thead>
+        <tr>
+          <th >记录id</th>
+          <th >房间id</th>
+          <th >风速</th>
+          <th >初始温度</th>
+          <th>设定温度</th>
+          <th >请求递交时间</th>
+          <th >服务开始时间</th>
+          <th >结束时间</th>
+          <th >耗电量</th>
+        </tr>
+      </thead>
+      <tbody th:remove="all-but-first">
+        <!--/*@thymesVar id="records" type=""*/-->
+<!--        /*@thymesVar id="record" type="admin.demo.Entity.Record"*/-->
+        <tr th:each="record : ${records}">
+          <!--/*@thymesVar id="recordId" type=""*/-->
+          <td th:text="${record.recordId}">Onions</td>
+          <td th:text="${record.roomId}">2.41</td>
+          <td th:text="${record.windSpeed}">yes</td>
+          <td th:text="${record.startTemp}">yes</td>
+          <td th:text="${record.setTemp}">yes</td>
+          <td th:text="${record.requestStartTime}">yes</td>
+          <td th:text="${record.actualStartTime}">yes</td>
+          <td th:text="${record.endTime}">yes</td>
+          <td th:text="${record.electricity}">yes</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <p>
+      <a href="../home.html" th:href="@{/}">Return to home</a>
+    </p>
+    
+  </body>
+  
+</html>
+

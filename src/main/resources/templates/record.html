@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8"/>
@@ -28,16 +28,19 @@
 <body>
 <div class="container p-5">
     <div class="row py-5 my-5">
-        <form class="d-flex flex-column justify-content-center my-5 blue2 col-4 p-3">
+<!--        /*@thymesVar id="userLogin" type=""*/-->
+        <form class="d-flex flex-column justify-content-center my-5 blue2 col-4 p-3" th:action="@{/giveRecord}" th:href="@{/giveRecord}" th:object="${userLogin}" method="get">
             <div class="form-group d-flex">
                 <label class="text-white">用户名</label>
-                <input class="form-control w-50"/>
+                <input class="form-control" id="userId" th:field="*{userId}" placeholder="请输入用户id" />
             </div>
             <button id="login" type="submit" class="btn text-white border border-white d-block px-4"
                     style="margin: 0 auto;">
                 查询
             </button>
         </form>
+
+
         <div class="my-5 col-8 p-3">
             <table class="table table-bordered">
                 <thead>
@@ -53,28 +56,7 @@
                     <th scope="col">耗电量</th>
                 </tr>
                 </thead>
-<!--              <tbody th:remove="all-but-first">-->
-<!--              &lt;!&ndash;/*@thymesVar id="records" type=""*/&ndash;&gt;-->
-<!--              <tr th:each="record : ${records}"">-->
-<!--                <td th:text="${record.userId}"></td>-->
-<!--                <td th:text="${record.roomId}"></td>-->
-<!--                &lt;!&ndash; 一会儿再填充               &ndash;&gt;-->
-<!--                <td scope="col" th:text="${record.windSpeed}"></td>-->
-<!--                <td scope="col" th:text="${record.startTemp}"></td>-->
-<!--                <td scope="col" th:text="${record.setTemp}"></td>-->
-<!--                <td scope="col" th:text="${record.requestStartTime}"></td>-->
-<!--                <td scope="col" th:text="${record.actualStartTime}"></td>-->
-<!--                <td scope="col" th:text="${record.endTime}"></td>-->
-<!--                <td scope="col" th:text="${record.electricity}"></td>-->
-
-<!--              </tr>-->
-<!--              </tbody>-->
             </table>
-            <div class="text-right" style="letter-spacing: 5px;">
-                总计
-                <input class="form-control d-inline-block w-25" disabled/>
-                元
-            </div>
         </div>
     </div>
 </div>

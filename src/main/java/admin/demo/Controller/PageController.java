@@ -3,8 +3,10 @@ package admin.demo.Controller;
 import admin.demo.Comment.Result;
 import admin.demo.Dto.UserLogin;
 import admin.demo.Entity.Conditioner;
+import admin.demo.Entity.Record;
 import admin.demo.Entity.User;
 import admin.demo.Repository.ConditionerRepository;
+import admin.demo.Repository.RecordRepository;
 import admin.demo.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +16,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -23,6 +28,8 @@ public class PageController {
     UserRepository userRepository;
     @Autowired
     ConditionerRepository conditionerRepository;
+    @Autowired
+    RecordRepository recordRepository;
 
     @GetMapping("/login")
     String login(Model model)
@@ -38,8 +45,9 @@ public class PageController {
     }
 
     @GetMapping("/record")
-    String record()
+    String record(Model model)
     {
+        model.addAttribute("userLogin",new UserLogin());
         return "record";
     }
 
@@ -66,6 +74,16 @@ public class PageController {
         }
     }
 
+    @GetMapping("/giveRecord")
+    String giveRecord(@ModelAttribute UserLogin userLogin, Model model, HttpServletRequest request)
+    {
+        long targetId=userLogin.userId;
+        System.out.println("收到请求"+targetId);
+        List<Record> records=new ArrayList<Record>(recordRepository.getByUserId((int) targetId));
+        model.addAttribute("records",records);
+        request.setAttribute("records",records);
+        return "list";
+    }
     @PostMapping("/userReg")
     String userReg(@ModelAttribute UserLogin userLogin){
         Date date = new Date();
