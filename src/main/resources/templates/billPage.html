@@ -41,9 +41,10 @@
     </div>
 </div>
 
-<a href="index.html" class="back-btn">Back</a>
+<a href="index.html" th:href="@{/index}"  class="back-btn">Back</a>
 </body>
-<script src="../Static/js/jquery-1.11.1.js"></script>
+<script src="../static/js/jquery-1.11.1.js"></script>
+<script scr="../static/js/moment.js"></script>
 <script>
     $(function () {
 
@@ -57,7 +58,7 @@
                 },
                 success: function (data) {
                     console.log("data",data);
-                    alert(data)
+
                 }
             });
 
