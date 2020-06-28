@@ -84,16 +84,18 @@ public class PageController {
         request.setAttribute("records",records);
         return "list";
     }
-    @PostMapping("/userReg")
-    String userReg(@ModelAttribute UserLogin userLogin){
+
+    @GetMapping("/userReg")
+    String userReg(@ModelAttribute UserLogin userLogin,Model model){
         Date date = new Date();
         Long datetime = date.getTime();
-        Conditioner conditioner = new Conditioner();
+        Conditioner conditioner = conditionerRepository.findByUserId((int)userLogin.userId);
         conditioner.userId = (int)userLogin.userId;
         conditioner.initTemp = userLogin.inittemp;
         conditioner.roomId=(int)userLogin.userId;
         conditionerRepository.save(conditioner);
-        conditioner = conditionerRepository.findByUserId((int)userLogin.userId);
+
+        model.addAttribute("conditioner",conditioner);
         //System.out.println(conditioner);
         User user = new User();
         user.userId = (int)userLogin.userId;

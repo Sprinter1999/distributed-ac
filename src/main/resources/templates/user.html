@@ -51,7 +51,7 @@
             </div>
             <div class="form-group d-flex">
                 <label class="inline-block">当前温度</label>
-                <p id="curTemp" class="form-control" disabled/>
+                <p id="curTemp" th:text="${conditioner.curTemp}" class="form-control" disabled/>
             </div>
             <div class="form-group d-flex">
                 <label class="inline-block">当前工作状态</label>
