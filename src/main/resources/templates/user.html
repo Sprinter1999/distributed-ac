@@ -89,9 +89,12 @@
 </div>
 <a href="index.html" class="back-btn">Back</a>
 </body>
-<script src="../Static/js/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script>
+
     $(function () {
+
+
         $("#roomId").val(sessionStorage.getItem("roomid"));
         $("#userId").val(sessionStorage.getItem("userId"));
         var work = sessionStorage.getItem("isAtWork");
@@ -121,10 +124,25 @@
         if(windSpeed==2){
             wind="高风";
         }
-        $("#isAtWork").val(isAtWork);
-        $("#curTemp").val(sessionStorage.getItem("curTemp"));
-        $("#dqfs").val(windSpeed);
+        $("#isAtWork").html(isAtWork);
+        $("#curTemp").html(sessionStorage.getItem("curTemp"));
+        $("#dqfs").html(wind);
 
+        setInterval(update,1000);
+        function update(){
+            var roomId = $("#roomId").val();
+            $.ajax({
+                "type":"get",
+                "url":"http://localhost:8080/conditioner/information",
+                "data":{roomId:roomId},
+                success:function (data) {
+                        if(data.success){
+                            $("#curTemp").html(data.result.curTemp);
+                        }
+                        else alert(data.message);
+                }
+            })
+        }
 
         $("#up").click(function () {
             var temp = $("#temp").val();
@@ -154,8 +172,8 @@
                             wind="高风";
                         }
 
-                        $("#roomId").val(result.roomId);
-                        $("#userId").val(result.userId);
+                        $("#roomId").html(result.roomId);
+                        $("#userId").html(result.userId);
                         var work = result.isAtWork;
 
                         var isAtWork=""
@@ -171,9 +189,9 @@
                         if(work==3){
                             isAtWork="待机";
                         }
-                        $("#isAtWork").val(isAtWork);
-                        $("#curTemp").val(result.curTemp);
-                        $("#dqfs").val(wind);
+                        $("#isAtWork").html(isAtWork);
+                        $("#curTemp").html(result.curTemp);
+                        $("#dqfs").html(wind);
                     }else{
                         alert(data.message);
                     }
@@ -207,8 +225,8 @@
                             wind="高风";
                         }
 
-                        $("#roomId").val(result.roomId);
-                        $("#userId").val(result.userId);
+                        $("#roomId").html(result.roomId);
+                        $("#userId").html(result.userId);
                         var work = result.isAtWork;
 
                         var isAtWork=""
@@ -224,9 +242,9 @@
                         if(work==3){
                             isAtWork="待机";
                         }
-                        $("#isAtWork").val(isAtWork);
-                        $("#curTemp").val(result.curTemp);
-                        $("#dqfs").val(wind);
+                        $("#isAtWork").html(isAtWork);
+                        $("#curTemp").html(result.curTemp);
+                        $("#dqfs").html(wind);
                     }else{
                         alert(data.message);
                     }
